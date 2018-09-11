@@ -6,12 +6,12 @@
 
     <groupId>HBV501G</groupId>
     <artifactId>Spring_Web_MVC</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.2.5.RELEASE</version>
+        <version>2.0.3.RELEASE</version>
     </parent>
 
     <dependencies>
@@ -32,10 +32,19 @@
         </dependency>
 
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>9.4-1201-jdbc41</version>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <scope>runtime</scope>
         </dependency>
+
+        <!--If you wish to connect this application to a PostgreSQL server then add the dependency below but remove the dependency above (the `hsqldb` one) -->
+        <!--
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.1-901-1.jdbc4</version>
+        </dependency>
+        -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
