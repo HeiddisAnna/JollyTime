@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import project.service.StringManipulationService;
 
 @Controller
-public class HomeController {
+public class CreateAccountContoller {
 
     // Instance Variables
     StringManipulationService stringService;
 
     // Dependency Injection
     @Autowired
-    public HomeController(StringManipulationService stringService) {
+    public CreateAccountContoller(StringManipulationService stringService) {
         this.stringService = stringService;
     }
 

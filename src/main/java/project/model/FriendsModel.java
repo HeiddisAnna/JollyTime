@@ -1,4 +1,4 @@
-package project.persistence.entities;
+package project.model;
 
 import javax.persistence.*;
 
@@ -9,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "postitnote") // If you want to specify a table name, you can do so here
-public class PostitNote {
+public class FriendsModel {
 
     // Declare that this attribute is the id
     @Id
@@ -21,10 +21,10 @@ public class PostitNote {
 
     // Notice the empty constructor, because we need to be able to create an empty PostitNote to add
     // to our model so we can use it with our form
-    public PostitNote() {
+    public FriendsModel() {
     }
 
-    public PostitNote(String name, String note) {
+    public FriendsModel(String name, String note) {
         this.name = name;
         this.note = note;
     }

@@ -2,7 +2,8 @@ package project.persistence.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import project.persistence.entities.PostitNote;
+
+import project.model.UserInfoModel;
 
 import java.util.List;
 
@@ -13,28 +14,28 @@ import java.util.List;
  * http://docs.spring.io/spring-data/data-commons/docs/1.6.1.RELEASE/reference/html/repositories.html
  *
  */
-public interface PostitNoteRepository extends JpaRepository<PostitNote, Long> {
+public interface PostitNoteRepository extends JpaRepository<UserInfoModel, Long> {
 
-    PostitNote save(PostitNote postitNote);
+    UserInfoModel save(UserInfoModel postitNote);
 
-    void delete(PostitNote postitNote);
+    void delete(UserInfoModel postitNote);
 
-    List<PostitNote> findAll();
+    List<UserInfoModel> findAll();
 
     // If we need a custom query that maybe doesn't fit the naming convention used by the JPA repository,
     // then we can write it quite easily with the @Query notation, like you see below.
     // This method returns all PostitNotes where the length of the name is equal or greater than 3 characters.
     @Query(value = "SELECT p FROM PostitNote p where length(p.name) >= 3 ")
-    List<PostitNote> findAllWithNameLongerThan3Chars();
+    List<UserInfoModel> findAllWithNameLongerThan3Chars();
 
     // Instead of the method findAllReverseOrder() in PostitNoteService.java,
     // We could have used this method by adding the words
     // ByOrderByIdDesc, which mean: Order By Id in a Descending order
     //
-    List<PostitNote> findAllByOrderByIdDesc();
+    List<UserInfoModel> findAllByOrderByIdDesc();
 
     @Query(value = "SELECT p FROM PostitNote p WHERE p.id = ?1")
-    PostitNote findOne(Long id);
+    UserInfoModel findOne(Long id);
 
-    List<PostitNote> findByName(String name);
+    List<UserInfoModel> findByName(String name);
 }

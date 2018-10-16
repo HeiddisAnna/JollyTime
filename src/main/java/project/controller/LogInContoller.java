@@ -7,18 +7,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import project.persistence.entities.PostitNote;
+
+import project.model.UserInfoModel;
 import project.service.PostitNoteService;
 
 @Controller
-public class PostitNoteController {
+public class LogInContoller {
 
     // Instance Variables
     private PostitNoteService postitNoteService;
 
     // Dependency Injection
     @Autowired
-    public PostitNoteController(PostitNoteService postitNoteService) {
+    public LogInContoller(PostitNoteService postitNoteService) {
         this.postitNoteService = postitNoteService;
     }
 
@@ -31,7 +32,7 @@ public class PostitNoteController {
         // Add a new Postit Note to the model for the form
         // If you look at the form in PostitNotes.jsp, you can see that we
         // reference this attribute there by the name `postitNote`.
-        model.addAttribute("postitNote",new PostitNote());
+        model.addAttribute("postitNote",new UserInfoModel());
 
         // Here we get all the Postit Notes (in a reverse order) and add them to the model
         model.addAttribute("postitNotes",postitNoteService.findAllReverseOrder());
@@ -47,7 +48,7 @@ public class PostitNoteController {
     // into the form.
     // Notice the `method = RequestMethod.POST` part
     @RequestMapping(value = "/postit", method = RequestMethod.POST)
-    public String postitNoteViewPost(@ModelAttribute("postitNote") PostitNote postitNote,
+    public String postitNoteViewPost(@ModelAttribute("postitNote") UserInfoModel postitNote,
                                      Model model){
 
         // Save the Postit Note that we received from the form
@@ -59,7 +60,7 @@ public class PostitNoteController {
         // Add a new Postit Note to the model for the form
         // If you look at the form in PostitNotes.jsp, you can see that we
         // reference this attribute there by the name `postitNote`.
-        model.addAttribute("postitNote", new PostitNote());
+        model.addAttribute("postitNote", new UserInfoModel());
 
         // Return the view
         return "postitnotes/PostitNotes";
@@ -81,7 +82,7 @@ public class PostitNoteController {
         // Add a new Postit Note to the model for the form
         // If you look at the form in PostitNotes.jsp, you can see that we
         // reference this attribute there by the name `postitNote`.
-        model.addAttribute("postitNote", new PostitNote());
+        model.addAttribute("postitNote", new UserInfoModel());
 
         // Return the view
         return "postitnotes/PostitNotes";
