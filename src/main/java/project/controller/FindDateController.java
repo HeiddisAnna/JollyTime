@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * in your project
  */
 @Controller
-@RequestMapping("/demo") // Notice here that the Request Mapping is set at the Class level
+@RequestMapping("/Flandri") // Notice here that the Request Mapping is set at the Class level
 public class FindDateController {
 
 
