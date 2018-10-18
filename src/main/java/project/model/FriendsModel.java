@@ -1,6 +1,7 @@
 package project.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 /**
  * The class for the Postit Note itself.
@@ -8,56 +9,75 @@ import javax.persistence.*;
  * Be sure to annotate any entities you have with the @Entity annotation.
  */
 @Entity
-@Table(name = "postitnote") // If you want to specify a table name, you can do so here
+@Table(name = "friend") // If you want to specify a table name, you can do so here
 public class FriendsModel {
 
-    // Declare that this attribute is the id
-    @Id
+	public class Friend {
+		@Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    private Long id;
+		private String name;
+	    private String email;
+	    
+	    public Friend() {
+	    }
+
+	    public Friend(String name, String email) {
+	        this.name = name;
+	        this.email = email;
+	    }
+	    
+	    public Long getId() { 
+	    	return id; 
+	    }
+
+	    public void setId(Long id) { 
+	    	this.id = id;
+	    }
+
+	    public String getName() { 
+	    	return name; 
+	    }
+
+	    public void setName(String name) { 
+	    	this.name = name;
+	    }
+
+	    public String getEmail() {
+	        return email;
+	    }
+
+	    public void setEmail(String email) {
+	        this.email = email;
+	    }
+	    
+	}
+	
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String name;
-    private String note;
-
-    // Notice the empty constructor, because we need to be able to create an empty PostitNote to add
-    // to our model so we can use it with our form
-    public FriendsModel() {
+	
+	ArrayList<Friend> friends = new ArrayList<Friend>();
+	
+	public FriendsModel() { }
+	
+	public FriendsModel(ArrayList<Friend> friends) {
+		this.friends = friends;
+	}
+	
+	public Long getId() { 
+    	return id; 
     }
 
-    public FriendsModel(String name, String note) {
-        this.name = name;
-        this.note = note;
+    public void setId(Long id) { 
+    	this.id = id;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    // This is for easier debug.
-    @Override
-    public String toString() {
-        return String.format(
-                "Postit Note[name=%s, note=%s]",
-                name,note);
-    }
+	
+	public void addFriend(Friend friend) {
+		friends.add(friend);
+	}
+	
+	public ArrayList<Friend> getFriends() {
+		return friends;
+	}
 }
