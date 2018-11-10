@@ -1,5 +1,6 @@
 package project.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +16,13 @@ import project.service.Implementation.UserServiceImplementation;
 @Controller
 public class IndexController {
 	
+	UserService userService;
+	
+	@Autowired
+	public IndexController(UserService userService) {
+	this.userService = userService;
+	}
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(/*Model model*/) {
 		
@@ -22,19 +30,17 @@ public class IndexController {
 	}
 	
 	
-	
 	@RequestMapping(value = "/calendar", method = RequestMethod.POST)
 	public String logIn(Model model) {
+		String email = "jdklaj"; // Hvernig sæki ég rétt email
+		User user = userService.findByEmail(email);
+		
+		//Ef notandinn er ekki til þarf hann að logga sig inn 
+		if(user == null) {
+			//Byrta skilaboð um að notandi sé ekki til
+			//Hverju á ég þá að returna ??
+			return "Calendar";
+		} 
 		return "Calendar";
 	}
-	
-	@RequestMapping(value = "/index", method = RequestMethod.GET) 
-	public String createAccount(Model model) {
-		
-		model.addAttribute("user", new User());
-		return "IndexForm";
-	}
-	
-
-
 }
