@@ -28,6 +28,13 @@ public class IndexController {
 		return "Calendar";
 	}
 	
+	@RequestMapping(value = "/index", method = RequestMethod.GET) 
+	public String createAccount(Model model) {
+		
+		model.addAttribute("user", new User());
+		return "IndexForm";
+	}
+	
 
 
 }

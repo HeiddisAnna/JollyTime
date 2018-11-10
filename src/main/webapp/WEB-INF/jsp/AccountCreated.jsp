@@ -11,6 +11,8 @@
     <body>
 
     	<h1>Account has been created</h1>
+    	
+    	<a href="index">Log In</a>
 
     </body>
 
