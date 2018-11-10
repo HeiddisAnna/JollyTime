@@ -16,7 +16,7 @@ public class Event {
     private Long id;
 
     @ManyToMany(mappedBy="events")
-    private Set<Calendar> calendars;
+    private Set<JollyCalendar> calendars;
     
     private String title;
     private String description;
@@ -27,7 +27,7 @@ public class Event {
     public Event() {
     }
 
-    public Event(String title, String description, Date startDate, Date endDate, Set<Calendar> calendars) {
+    public Event(String title, String description, Date startDate, Date endDate, Set<JollyCalendar> calendars) {
     	this.title = title;
     	this.startDate = startDate;
     	this.endDate = endDate;
@@ -77,11 +77,11 @@ public class Event {
     }
     
     
-    public Set<Calendar> getCalendars() {
+    public Set<JollyCalendar> getCalendars() {
     	return calendars;
     }
     
-    public void setCalendars(Set<Calendar> calendars) {
+    public void setCalendars(Set<JollyCalendar> calendars) {
     	this.calendars = calendars;
     }
     

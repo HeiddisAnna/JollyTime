@@ -20,7 +20,7 @@ public class User {
     
     @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="CAL_ID")
-    private Calendar calendar;
+    private JollyCalendar calendar;
     
     @ManyToMany
     @JoinTable(
@@ -79,11 +79,11 @@ public class User {
         this.password = password;
     }
 
-    public Calendar getCalendar() {
+    public JollyCalendar getCalendar() {
     	return calendar;
     }
     
-    public void setCalendar(Calendar calendar) {
+    public void setCalendar(JollyCalendar calendar) {
     	this.calendar = calendar;
     }
 }

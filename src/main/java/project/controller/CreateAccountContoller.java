@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import project.model.Calendar;
+import project.model.JollyCalendar;
 import project.model.User;
 import project.persistence.repositories.UserRepository;
 import project.service.UserService;
