@@ -21,11 +21,17 @@ public class IndexController {
 		return "IndexForm";
 	}
 	
+	
 	@RequestMapping(params="login", method=RequestMethod.POST)
 	public String login() {
 		return "/IndexResult";
 	}
 	
+	@RequestMapping(value = "/calendar", method = RequestMethod.GET)
+	public String logIn(Model model) {
+		return "Calendar";
+	}
 	
+
 
 }

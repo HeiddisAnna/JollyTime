@@ -12,7 +12,7 @@
 
     	<h1>Jolly Time :D Form</h1>
     	<p>Please enter your email and password</p>
-		<form action="#" th:action="@{/info}" th:object="${userinfo}" method="post">
+		<form action="/calendar" th:action="@{/info}" th:object="${userinfo}" method="post">
 			<p>Email: <input type="text" th:field="*{email}" /></p>
 			<p>Password: <input type="text"  th:field="*{password}" /></p>	
 			<input type="submit" name="login" value="Log In"/>

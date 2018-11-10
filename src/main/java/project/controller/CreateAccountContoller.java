@@ -20,13 +20,17 @@ import project.service.Implementation.UserServiceImplementation;
 @Controller
 public class CreateAccountContoller {
 	
-	@RequestMapping(value = "/createaccount", method = RequestMethod.GET)
+	//value er það sem bærtist við urlið þegar þú gerir þetta. 
+	// Þú getur annað hvort verið með post eða get, get er til að sækja upplýsingar, notar get til að fara yfir á næstu síðu
+	// Hann skilar jsp filnum til að fara á þá síðu
+	@RequestMapping(value = "/createaccount", method = RequestMethod.GET) 
 	public String createAccount(Model model) {
 		
-		model.addAttribute("user", new User());
+		model.addAttribute("user", new User()); //hann verður að setja inn user til að fara á þessa síðu
 		
 		return "CreateAccount";
 	}
+	
 	
 	@RequestMapping(value = "/accountcreated", method = RequestMethod.POST)
 	public String accountCreated(@ModelAttribute("user") User user, Model model) {
@@ -44,8 +48,9 @@ public class CreateAccountContoller {
 		model.addAttribute("user", new User());
 		
 		return "AccountCreated";
-		
 	}
+	
+	
 	
 
 	
