@@ -31,14 +31,15 @@ public class IndexController {
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET) 
 	public String backHome() {
-		return "IndexForm";
+		return "CreateAccount";
 	}
 	
 	
 	@RequestMapping(value = "/calendar", method = RequestMethod.POST)
-	public String logIn(Model model) {
-		String email = "jdklaj"; // Hvernig sæki ég rétt email
-		User user = userService.findByEmail(email);
+	public String logIn(@ModelAttribute User user, Model model) {
+		/*
+		String email = user.getEmail();
+		User realUser = UserService.doesEmailMatchPassword(user.getEmail(), user.getPassword());
 		
 		//Ef notandinn er ekki til þarf hann að logga sig inn 
 		if(user == null) {
@@ -46,6 +47,7 @@ public class IndexController {
 			//Hverju á ég þá að returna ??
 			return "Calendar";
 		} 
+		*/
 		return "Calendar";
 	}
 }

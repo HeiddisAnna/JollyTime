@@ -46,5 +46,7 @@ public interface UserService {
     List<User> findByName(String name);
     
     User findByEmail(String email);
+    
+    User doesEmailMatchPassword(String email, String password);
 
 }
