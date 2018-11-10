@@ -2,47 +2,47 @@ package project.service;
 
 import java.util.List;
 
-import project.model.UserInfoModel;
+import project.model.User;
 
 public interface PostitNoteService {
 
     /**
-     * Save a {@link UserInfoModel}
-     * @param postitNote {@link UserInfoModel} to be saved
-     * @return {@link UserInfoModel} that was saved
+     * Save a {@link User}
+     * @param postitNote {@link User} to be saved
+     * @return {@link User} that was saved
      */
-    UserInfoModel save(UserInfoModel postitNote);
+    User save(User postitNote);
 
     /**
-     * Delete {@link UserInfoModel}
-     * @param postitNote {@link UserInfoModel} to be deleted
+     * Delete {@link User}
+     * @param postitNote {@link User} to be deleted
      */
-    void delete(UserInfoModel postitNote);
+    void delete(User postitNote);
 
     /**
-     * Get all {@link UserInfoModel}s
-     * @return A list of {@link UserInfoModel}s
+     * Get all {@link User}s
+     * @return A list of {@link User}s
      */
-    List<UserInfoModel> findAll();
+    List<User> findAll();
 
     /**
-     * Get all {@link UserInfoModel}s in a reverse order
-     * @return A reversed list of {@link UserInfoModel}s
+     * Get all {@link User}s in a reverse order
+     * @return A reversed list of {@link User}s
      */
-    List<UserInfoModel> findAllReverseOrder();
+    List<User> findAllReverseOrder();
 
     /**
-     * Find a {@link UserInfoModel} based on {@link Long id}
+     * Find a {@link User} based on {@link Long id}
      * @param id {@link Long}
-     * @return A {@link UserInfoModel} with {@link Long id}
+     * @return A {@link User} with {@link Long id}
      */
-    UserInfoModel findOne(Long id);
+    User findOne(Long id);
 
     /**
-     * Find all {@link UserInfoModel}s with {@link String name}
+     * Find all {@link User}s with {@link String name}
      * @param name {@link String}
-     * @return All {@link UserInfoModel}s with the {@link String name} passed
+     * @return All {@link User}s with the {@link String name} passed
      */
-    List<UserInfoModel> findByName(String name);
+    List<User> findByName(String name);
 
 }

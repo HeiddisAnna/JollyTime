@@ -6,12 +6,13 @@
 <html lang="en">
 
     <head>
-        <title>User Page</title>
+        <title>Calendar</title>
     </head>
     <body>
 
-    <h1>User Page</h1>
-    <p>Here could be some user information</p>
+    <h1>Calendar</h1>
+    <h3>User: ${nom}!</h3>
+    <p>Here we would display the calendar</p>
 
     <table border="1px gray">
         <thead>

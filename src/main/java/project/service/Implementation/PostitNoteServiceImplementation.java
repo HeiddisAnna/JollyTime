@@ -3,7 +3,7 @@ package project.service.Implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import project.model.UserInfoModel;
+import project.model.User;
 import project.persistence.repositories.PostitNoteRepository;
 import project.service.PostitNoteService;
 
@@ -23,24 +23,24 @@ public class PostitNoteServiceImplementation implements PostitNoteService {
     }
 
     @Override
-    public UserInfoModel save(UserInfoModel postitNote) {
+    public User save(User postitNote) {
         return repository.save(postitNote);
     }
 
     @Override
-    public void delete(UserInfoModel postitNote) {
+    public void delete(User postitNote) {
         repository.delete(postitNote);
     }
 
     @Override
-    public List<UserInfoModel> findAll() {
+    public List<User> findAll() {
         return repository.findAll();
     }
 
     @Override
-    public List<UserInfoModel> findAllReverseOrder() {
+    public List<User> findAllReverseOrder() {
         // Get all the Postit notes
-        List<UserInfoModel> postitNotes = repository.findAll();
+        List<User> postitNotes = repository.findAll();
 
         // Reverse the list
         Collections.reverse(postitNotes);
@@ -49,12 +49,12 @@ public class PostitNoteServiceImplementation implements PostitNoteService {
     }
 
     @Override
-    public UserInfoModel findOne(Long id) {
+    public User findOne(Long id) {
         return repository.findOne(id);
     }
 
     @Override
-    public List<UserInfoModel> findByName(String name) {
+    public List<User> findByName(String name) {
         return repository.findByName(name);
     }
 }
