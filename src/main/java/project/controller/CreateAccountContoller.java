@@ -35,6 +35,7 @@ public class CreateAccountContoller {
 	@RequestMapping(value = "/accountcreated", method = RequestMethod.POST)
 	public String accountCreated(@ModelAttribute("user") User user, Model model) {
 		
+		/*
 		Long id = user.getId();
 		//UserService userService = new UserServiceImplementation(new JpaRepository<User, id>());
 
@@ -46,6 +47,7 @@ public class CreateAccountContoller {
 		
 		
 		model.addAttribute("user", new User());
+		*/
 		
 		return "AccountCreated";
 	}

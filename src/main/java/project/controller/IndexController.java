@@ -22,12 +22,8 @@ public class IndexController {
 	}
 	
 	
-	@RequestMapping(params="login", method=RequestMethod.POST)
-	public String login() {
-		return "/IndexResult";
-	}
 	
-	@RequestMapping(value = "/calendar", method = RequestMethod.GET)
+	@RequestMapping(value = "/calendar", method = RequestMethod.POST)
 	public String logIn(Model model) {
 		return "Calendar";
 	}
