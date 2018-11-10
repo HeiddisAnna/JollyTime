@@ -13,6 +13,7 @@ public class Calendar {
     
     @Id
     @Column(name="CAL_ID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     
     @ManyToMany

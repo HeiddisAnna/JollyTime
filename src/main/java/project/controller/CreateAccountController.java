@@ -4,6 +4,7 @@ package project.controller;
 
 import java.util.HashSet;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +19,13 @@ import project.service.UserService;
 import project.service.Implementation.UserServiceImplementation;
 
 @Controller
-public class CreateAccountContoller {
+public class CreateAccountController {
+	UserService userService;
+	
+	@Autowired
+	public CreateAccountController(UserService userService) {
+		this.userService = userService;
+	}
 	
 	//value er það sem bærtist við urlið þegar þú gerir þetta. 
 	// Þú getur annað hvort verið með post eða get, get er til að sækja upplýsingar, notar get til að fara yfir á næstu síðu
@@ -35,19 +42,9 @@ public class CreateAccountContoller {
 	@RequestMapping(value = "/accountcreated", method = RequestMethod.POST)
 	public String accountCreated(@ModelAttribute("user") User user, Model model) {
 		
-		/*
-		Long id = user.getId();
-		//UserService userService = new UserServiceImplementation(new JpaRepository<User, id>());
-
-		UserService userService = new UserServiceImplementation();
-		user.setCalendar(new Calendar());
-		user.setFriends(new HashSet<User>());
-		
 		userService.save(user);
 		
-		
 		model.addAttribute("user", new User());
-		*/
 		
 		return "AccountCreated";
 	}

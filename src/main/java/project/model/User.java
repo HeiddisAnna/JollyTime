@@ -12,6 +12,7 @@ public class User {
     // Declare that this attribute is the id
     @Id
     @Column(name="USER_ID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     private String email;

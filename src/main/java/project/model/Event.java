@@ -13,6 +13,7 @@ public class Event {
  
     @Id
     @Column(name="EVENT_ID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @ManyToMany(mappedBy="events")
