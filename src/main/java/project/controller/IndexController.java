@@ -29,6 +29,11 @@ public class IndexController {
 		return "IndexForm";
 	}
 	
+	@RequestMapping(value = "/index", method = RequestMethod.GET) 
+	public String backHome() {
+		return "IndexForm";
+	}
+	
 	
 	@RequestMapping(value = "/calendar", method = RequestMethod.POST)
 	public String logIn(Model model) {
