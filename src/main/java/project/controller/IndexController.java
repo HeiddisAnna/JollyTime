@@ -30,13 +30,16 @@ public class IndexController {
 	}
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET) 
-	public String backHome() {
-		return "CreateAccount";
+	public String backHome(Model model) {
+		model.addAttribute("user", new User());
+		return "IndexForm";
 	}
 	
 	
 	@RequestMapping(value = "/calendar", method = RequestMethod.POST)
-	public String logIn(@ModelAttribute User user, Model model) {
+	public String logIn() {
+		
+		//model.addAttribute("user", new User());
 		/*
 		String email = user.getEmail();
 		User realUser = UserService.doesEmailMatchPassword(user.getEmail(), user.getPassword());
