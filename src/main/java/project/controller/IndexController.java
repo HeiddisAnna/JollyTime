@@ -1,5 +1,9 @@
 package project.controller;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,33 +28,30 @@ public class IndexController {
 	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(/*Model model*/) {
-		
+	public String home(Model model) {
+		model.addAttribute("user", new User());
 		return "IndexForm";
 	}
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET) 
 	public String backHome(Model model) {
 		model.addAttribute("user", new User());
+
 		return "IndexForm";
 	}
 	
 	
-	@RequestMapping(value = "/calendar", method = RequestMethod.POST)
-	public String logIn() {
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String logIn(@ModelAttribute User user ,HttpSession session, Model model) {
+				
+		if (user != null) {
+			session.setAttribute("user", user);
+			model.addAttribute("user", new User());
+			model.addAttribute("nom", user.getName());
+			return "IndexResult";
+		} else {
+			return "IndexForm";
+		}
 		
-		//model.addAttribute("user", new User());
-		/*
-		String email = user.getEmail();
-		User realUser = UserService.doesEmailMatchPassword(user.getEmail(), user.getPassword());
-		
-		//Ef notandinn er ekki til þarf hann að logga sig inn 
-		if(user == null) {
-			//Byrta skilaboð um að notandi sé ekki til
-			//Hverju á ég þá að returna ??
-			return "Calendar";
-		} 
-		*/
-		return "Calendar";
 	}
 }

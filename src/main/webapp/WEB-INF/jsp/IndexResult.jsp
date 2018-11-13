@@ -11,8 +11,8 @@
     <body>
 
     	<h1>Jolly Time :D Result</h1>
-    	
-    	
+    	<p>Hello <span th:utext="${session.user.name}">!</span></p>
+    	<p>Hello ${nom}!</p>
     
     </body>
     <footer>Class HBV501G, University of Iceland</footer>
