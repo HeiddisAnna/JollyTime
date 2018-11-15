@@ -40,7 +40,7 @@ public class IndexController {
 		User user = userService.findByEmail(email);
 		
 		//Ef notandinn er ekki til þarf hann að logga sig inn 
-		if(user == null || user.getPassword().equals(password)) {	
+		if(user == null || !(user.getPassword().equals(password))) {	
 			return "IndexForm";
 		}
 		
