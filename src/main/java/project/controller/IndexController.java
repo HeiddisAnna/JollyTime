@@ -46,12 +46,4 @@ public class IndexController {
 		
 		return "Calendar";
 	}
-	
-	Boolean passwordRight(String email, String password) {
-		String rightPasswod = "SELECT... ";
-		if(password == righPassword) {
-			return true; 
-			
-		}
-	}
 }
