@@ -35,17 +35,23 @@ public class IndexController {
 	}
 	
 	
-	@RequestMapping(value = "/calendar", method = RequestMethod.POST)
-	public String logIn(Model model) {
-		String email = "jdklaj"; // Hvernig sæki ég rétt email
+	@RequestMapping(value = "/index", method = RequestMethod.POST)
+	public String logIn(@RequestParam(value = "email") String email, @RequestParam(value = "password") String password, Model model) {
 		User user = userService.findByEmail(email);
 		
 		//Ef notandinn er ekki til þarf hann að logga sig inn 
-		if(user == null) {
-			//Byrta skilaboð um að notandi sé ekki til
-			//Hverju á ég þá að returna ??
-			return "Calendar";
-		} 
+		if(user == null || user.getPassword().equals(password)) {	
+			return "IndexForm";
+		}
+		
 		return "Calendar";
+	}
+	
+	Boolean passwordRight(String email, String password) {
+		String rightPasswod = "SELECT... ";
+		if(password == righPassword) {
+			return true; 
+			
+		}
 	}
 }
