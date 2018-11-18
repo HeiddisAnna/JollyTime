@@ -14,11 +14,11 @@
 
     	<h1>Jolly Time :D Form</h1>
     	<p>Please enter your email and password</p>
-    	
-    	<form action="/login" th:action="@{/login}" th:object="${user}" method="post">
-    		<p>email: <input type="text" th:field="*{email}" /></p>
-    		<p>password: <input type="text" th:field="*{password}" /></p>
-    		<p><input type="submit" value="Log In" /></p>
+
+		<form action="/index" th:action="@{/index}" method="post">
+			<p>Email: <input type="text" name="email" /></p>
+			<p>Password: <input type="text"  name="password" /></p>	
+			<input type="submit" name="login" value="Log In"/>
 		</form>
 		<a href="createaccount">Create Account</a>
     

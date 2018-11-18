@@ -40,18 +40,15 @@ public class IndexController {
 		return "IndexForm";
 	}
 	
-	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String logIn(@ModelAttribute User user ,HttpSession session, Model model) {
-				
-		if (user != null) {
-			session.setAttribute("user", user);
-			model.addAttribute("user", new User());
-			model.addAttribute("nom", user.getName());
-			return "IndexResult";
-		} else {
+	@RequestMapping(value = "/index", method = RequestMethod.POST)
+	public String logIn(@RequestParam(value = "email") String email, @RequestParam(value = "password") String password, Model model) {
+		User user = userService.findByEmail(email);
+		
+		//Ef notandinn er ekki til þarf hann að logga sig inn 
+		if(user == null || !(user.getPassword().equals(password))) {	
 			return "IndexForm";
 		}
 		
+		return "Calendar";
 	}
 }
