@@ -63,4 +63,9 @@ public class UserServiceImplementation implements UserService {
     public User findByEmail(String email) {
     	return repository.findByEmail(email);
     }
+    
+    @Override
+    public User doesEmailMatchPassword(String email, String password) {
+    	return repository.doesEmailMatchPassword(email, password);
+    }
 }
