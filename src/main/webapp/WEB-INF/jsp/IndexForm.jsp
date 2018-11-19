@@ -8,20 +8,40 @@
 
 
     <head>
+        <meta charset="utf-8">
         <title>Jolly Time</title>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+        <link rel="stylesheet" href="grid.css">
+        <link rel="stylesheet" href="IndexForm.css">
     </head>
+
     <body>
+        <main>
+            <header>
+            <h1 class = JollyTime__header>Jolly Time</h1>
+            </header>
 
-    	<h1>Jolly Time :D Form</h1>
-    	<p>Please enter your email and password</p>
+            <div class="LogIn">
+                <h2 class="LogIn__header">Please enter your email and password</h2>
+                <form class= "LogIn__container" action="/index" th:action="@{/index}" method="post">
+                    <div class="LogIn__text">
+                        <label class="LogIn__textQuestion" for="email__text">Email:</label>
+                        <input class="LogIn__textAnswer" type="text" name="email" />
+                    </div>
+                    <div class="LogIn__text">
+                            <label class="LogIn__textQuestion" for="password__text">Password:</label>
+                            <input class="LogIn__textAnswer" type="text"  name="password" />
+                    </div>
+                    <div class="LogIn__button">
+                        <input class="button" type="submit" name="login" value="Log In"/>
+                    </div>
+                </form>
+                <a class="LogIn__newAccount" href="createaccount">Create new account</a>
+            </div>
 
-		<form action="/index" th:action="@{/index}" method="post">
-			<p>Email: <input type="text" name="email" /></p>
-			<p>Password: <input type="text"  name="password" /></p>	
-			<input type="submit" name="login" value="Log In"/>
-		</form>
-		<a href="createaccount">Create Account</a>
-    
-    </body>
-    <footer>Class HBV501G, University of Iceland</footer>
+            <footer>
+                <p class="footer__text"> Class HBV501G, University of Iceland </p>
+            </footer>
+        </main>
+    </body>	
 </html>

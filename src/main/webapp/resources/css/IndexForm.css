@@ -1,0 +1,120 @@
+
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  
+  html {
+    box-sizing: border-box;
+  
+    font-family: 'Open Sans', helvetica, arial, sans-serif;
+    font-size: 16px;
+  }
+  
+  main {
+    margin: 0 auto;
+    max-width: 1500px;
+    padding: 20px;
+  }
+
+  /*Header*/
+
+  header {
+      min-height: 2em;
+      padding: 10px;
+  }
+
+  .JollyTime__header{
+    color: #6b8b3a;
+  }
+
+  /*Main text*/
+
+  .LogIn {
+      display: flex;
+      flex-direction: column;
+      max-width: 40%;
+      margin: auto;
+      padding: 10px;
+
+      min-height: 70vh;
+  }
+
+  .LogIn__header {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+  }
+
+  .LogIn__container {
+      display: flex;
+      flex-direction: column;
+      width: 70%;
+      align-self: center;
+  }
+
+  .LogIn__text {
+      display: flex;
+      margin-top: 20px;
+      margin-bottom: 20px;
+  }
+
+  .LogIn__textQuestion {
+      display: flex;
+      min-width: 85px;
+  }
+  .LogIn__textAnswer {
+      display: flex;
+      min-width: 72%;
+  }
+
+  .LogIn__button {
+    display: flex;
+    align-self: center;
+  }
+
+  .button {
+      border-radius: 4px;
+      background-color: #6b8b3a;
+      border: 1px solid #000000;
+      padding-left: 25px;
+      padding-right: 25px;
+      padding-top: 7px;
+      padding-bottom: 7px;
+
+      display: flex;
+      margin-top: 20px;
+      margin-bottom: 20px;
+  }
+  .button:hover {
+    background-color:  #4e6629;
+  }
+
+  .LogIn__newAccount {
+      text-decoration: none;
+      color: #6b8b3a;
+      display: flex;
+      align-self: center;
+      font-weight: bold;
+  }
+  .LogIn__newAccount:hover {
+      color:  #4e6629;
+      
+  }
+
+
+  /*Footer*/
+  footer {
+      margin-top: 40px;
+      padding: 10px;
+  }
+
+  .footer__text {
+      display: flex;
+      width: max-content;
+  }
+
