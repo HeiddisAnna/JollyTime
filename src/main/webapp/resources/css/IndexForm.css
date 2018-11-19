@@ -25,10 +25,14 @@
 
   header {
       min-height: 2em;
-      padding: 10px;
+      padding: 35px;
   }
 
   .JollyTime__header{
+    color: #6b8b3a;
+  }
+
+  header p {
     color: #6b8b3a;
   }
 
@@ -117,4 +121,7 @@
       display: flex;
       width: max-content;
   }
+
+
+
 

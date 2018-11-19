@@ -18,7 +18,8 @@
     <body>
         <main>
             <header>
-            <h1 class = JollyTime__header>Jolly Time</h1>
+            	<h1 class = JollyTime__header>Jolly Time</h1>
+            	<p>Calendar for you and your friends</p>
             </header>
 
             <div class="LogIn">
@@ -30,7 +31,7 @@
                     </div>
                     <div class="LogIn__text">
                             <label class="LogIn__textQuestion" for="password__text">Password:</label>
-                            <input class="LogIn__textAnswer" type="text"  name="password" />
+                            <input class="LogIn__textAnswer" type="password"  name="password" />
                     </div>
                     <div class="LogIn__button">
                         <input class="button" type="submit" name="login" value="Log In"/>
