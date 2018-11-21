@@ -3,10 +3,10 @@ package project.service.Implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import project.model.User;
-import project.persistence.repositories.PostitNoteRepository;
+import project.model.JollyUser;
+import project.persistence.repositories.EventRepository;
 import project.persistence.repositories.UserRepository;
-import project.service.PostitNoteService;
+import project.service.EventService;
 import project.service.UserService;
 
 import java.util.Collections;
@@ -27,45 +27,53 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public User save(User user) {
+    public JollyUser save(JollyUser user) {
         return repository.save(user);
     }
 
     @Override
-    public void delete(User user) {
+    public void delete(JollyUser user) {
         repository.delete(user);
     }
 
     @Override
-    public List<User> findAll() {
+    public List<JollyUser> findAll() {
         return repository.findAll();
     }
 
     @Override
-    public List<User> findAllReverseOrder() {
-        List<User> users = repository.findAll();
+    public List<JollyUser> findAllReverseOrder() {
+        List<JollyUser> users = repository.findAll();
         Collections.reverse(users);
 
         return users;
     }
 
     @Override
-    public User findOne(Long id) {
+    public JollyUser findOne(Long id) {
         return repository.findOne(id);
     }
 
     @Override
-    public List<User> findByName(String name) {
+    public List<JollyUser> findByName(String name) {
         return repository.findByName(name);
     }
     
     @Override
-    public User findByEmail(String email) {
+    public JollyUser findByEmail(String email) {
     	return repository.findByEmail(email);
     }
     
     @Override
-    public User doesEmailMatchPassword(String email, String password) {
+    public JollyUser doesEmailMatchPassword(String email, String password) {
     	return repository.doesEmailMatchPassword(email, password);
     }
+    
+    /*
+    @Override
+    public Long doesIDMatchFriend(Long userID, Long friendID) {
+    	return new Long(0); //repository.doesIDMatchFriend(userID, friendID);
+    }
+    */
+    
 }

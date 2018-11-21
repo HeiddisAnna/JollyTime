@@ -9,18 +9,22 @@
         <title>Add Friend</title>
     </head>
     <body>
-
-    	<h1>Add Friend</h1>
-    	<h3>Here we would allow the user to add a friend</h3>
     	
-    	<form>
-    		<p>Enter email address</p>
-    		<input type="text" name="email">
-    		<input type="submit" value="Search">
-    	</form>
-    	
-    	
-
+    	<div class="AddFriend">
+        	<h2 class="AddFriend__header">Please the email address of your friend</h2>
+            <form class= "AddFriend__container" action="/addThisFriend" th:action="@{/addThisFriend}" method="post">
+            	<div class="AddFriend__text">
+                	<label class="AddFriend__textQuestion" for="email__text">Email:</label>
+                    <input class="AddFriend__textAnswer" type="text" name="email" />
+                </div>
+				<div class="AddFriend__button">
+                	<input class="button" type="submit" name="addThisFriend" value="addFriend"/>
+                </div>
+                <div class="AddFriend__error">
+                	<p>${errormessage}</p>
+                </div>
+			</form>
+		</div>
 
     </body>
 

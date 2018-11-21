@@ -25,13 +25,13 @@ public class Calendar {
     
     
     @OneToOne(fetch=FetchType.LAZY, mappedBy="calendar")
-    private User user;
+    private JollyUser user;
     
 
     public Calendar() {
     }
 
-    public Calendar(Set<Event> events, User user) {
+    public Calendar(Set<Event> events, JollyUser user) {
         this.events = events;
         this.user = user;
     }
@@ -44,11 +44,11 @@ public class Calendar {
     	this.events = events;
     }
     
-    public User getUser() {
+    public JollyUser getUser() {
     	return user;
     }
     
-    public void setUser(User user) {
+    public void setUser(JollyUser user) {
     	this.user = user;
     }
     

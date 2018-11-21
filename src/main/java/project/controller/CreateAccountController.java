@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import project.model.Calendar;
-import project.model.User;
+import project.model.JollyUser;
 import project.persistence.repositories.UserRepository;
 import project.service.UserService;
 import project.service.Implementation.UserServiceImplementation;
@@ -33,18 +33,18 @@ public class CreateAccountController {
 	@RequestMapping(value = "/createaccount", method = RequestMethod.GET) 
 	public String createAccount(Model model) {
 		
-		model.addAttribute("user", new User()); //hann verður að setja inn user til að fara á þessa síðu
+		model.addAttribute("user", new JollyUser()); //hann verður að setja inn user til að fara á þessa síðu
 		
 		return "CreateAccount";
 	}
 	
 	
 	@RequestMapping(value = "/accountcreated", method = RequestMethod.POST)
-	public String accountCreated(@ModelAttribute("user") User user, Model model) {
+	public String accountCreated(@ModelAttribute("user") JollyUser user, Model model) {
 		
 		userService.save(user);
 		
-		model.addAttribute("user", new User());
+		model.addAttribute("user", new JollyUser());
 		
 		return "AccountCreated";
 	}

@@ -36,6 +36,9 @@
                     <div class="LogIn__button">
                         <input class="button" type="submit" name="login" value="Log In"/>
                     </div>
+                    <div class="LogIn__error">
+                    	<p>${errormessage}</p>
+                    </div>
                 </form>
                 <a class="LogIn__newAccount" href="createaccount">Create new account</a>
             </div>

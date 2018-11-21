@@ -3,7 +3,7 @@ package project.persistence.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import project.model.User;
+import project.model.JollyUser;
 
 import java.util.List;
 
@@ -14,24 +14,27 @@ import java.util.List;
  * http://docs.spring.io/spring-data/data-commons/docs/1.6.1.RELEASE/reference/html/repositories.html
  *
  */
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<JollyUser, Long> {
 
-    User save(User user);
+    JollyUser save(JollyUser user);
 
-    void delete(User user);
+    void delete(JollyUser user);
 
-    List<User> findAll();
+    List<JollyUser> findAll();
 
-    List<User> findAllByOrderByIdDesc();
+    List<JollyUser> findAllByOrderByIdDesc();
 
-    @Query(value = "SELECT p FROM User p WHERE p.id = ?1")
-    User findOne(Long id);
+    @Query(value = "SELECT p FROM JollyUser p WHERE p.id = ?1")
+    JollyUser findOne(Long id);
     
-    //@Query(value = "SELECT p FROM User p WHERE p.email = ?1")
-    User findByEmail(String email);
+    //@Query(value = "SELECT p FROM JollyUser p WHERE p.email = ?1")
+    JollyUser findByEmail(String email);
 
-    List<User> findByName(String name);
+    List<JollyUser> findByName(String name);
     
-    @Query(value = "SELECT p FROM User p WHERE p.email = ?1 AND p.password = ?2")
-    User doesEmailMatchPassword(String email, String password);
+    @Query(value = "SELECT p FROM JollyUser p WHERE p.email = ?1 AND p.password = ?2")
+    JollyUser doesEmailMatchPassword(String email, String password);
+    
+    //@Query(value = "SELECT p.USER_ID FROM friends p WHERE p.USER_ID = ?1 AND p.FRIEND_ID = ?2")
+    //Long doesIDMatchFriend(Long userID, Long friendID);
 }

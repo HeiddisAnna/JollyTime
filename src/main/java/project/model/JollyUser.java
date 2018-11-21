@@ -6,8 +6,8 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "jollyuser")
+public class JollyUser {
 
     // Declare that this attribute is the id
     @Id
@@ -15,8 +15,13 @@ public class User {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "email")
     private String email;
+    
+    @Column (name = "name")
     private String name;
+    
+    @Column (name = "password")
     private String password;
     
     @OneToOne(fetch=FetchType.LAZY)
@@ -28,13 +33,13 @@ public class User {
     		name="friends",
     		joinColumns=@JoinColumn(name="USER_ID", referencedColumnName="USER_ID"),
     		inverseJoinColumns=@JoinColumn(name="FRIEND_ID", referencedColumnName="USER_ID"))
-    private Set<User> friends;
+    private Set<JollyUser> friends;
 
     
-    public User() {
+    public JollyUser() {
     }
 
-    public User(String email, String name, String password) {
+    public JollyUser(String email, String name, String password) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -56,11 +61,11 @@ public class User {
         this.name = name;
     }
     
-    public Set<User> getFriends() {
+    public Set<JollyUser> getFriends() {
         return friends;
     }
     
-    public void setFriends(Set<User> friends){
+    public void setFriends(Set<JollyUser> friends){
     	this.friends = friends;
     }
 
