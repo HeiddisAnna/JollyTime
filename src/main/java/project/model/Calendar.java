@@ -1,7 +1,7 @@
 package project.model;
 
 
-
+import project.model.JollyUser;
 import java.util.Set;
 
 import javax.persistence.*;

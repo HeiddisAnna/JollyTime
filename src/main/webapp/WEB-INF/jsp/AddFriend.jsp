@@ -18,7 +18,7 @@
                     <input class="AddFriend__textAnswer" type="text" name="email" />
                 </div>
 				<div class="AddFriend__button">
-                	<input class="button" type="submit" name="addThisFriend" value="addFriend"/>
+                	<input class="button" type="submit" name="addThisFriend" value="add Friend"/>
                 </div>
                 <div class="AddFriend__error">
                 	<p>${errormessage}</p>
