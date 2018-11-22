@@ -35,6 +35,8 @@ public interface UserRepository extends JpaRepository<JollyUser, Long> {
     @Query(value = "SELECT p FROM JollyUser p WHERE p.email = ?1 AND p.password = ?2")
     JollyUser doesEmailMatchPassword(String email, String password);
     
-    //@Query(value = "SELECT p.USER_ID FROM friends p WHERE p.USER_ID = ?1 AND p.FRIEND_ID = ?2")
-    //Long doesIDMatchFriend(Long userID, Long friendID);
+    /*
+    @Query(value = "SELECT p.USER_ID FROM Friends p WHERE p.USER_ID = ?1 AND p.FRIEND_ID = ?2")
+    Long doesIDMatchFriend(Long userID, Long friendID);
+    */
 }

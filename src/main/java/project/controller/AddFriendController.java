@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import project.model.JollyUser;
 import project.service.UserService;
 
-/**
- * Small controller just to show that you can have multiple controllers
- * in your project
- */
+
 @Controller
 public class AddFriendController {
 	
@@ -31,25 +28,26 @@ public class AddFriendController {
 		return "AddFriend";
 	}
 	
-	@RequestMapping(value = "/addThisFriend", method = RequestMethod.GET)
+	@RequestMapping(value = "/addThisFriend", method = RequestMethod.POST)
 	public String addThisFriend(@RequestParam(value = "email") String email, Model model, HttpSession session) {
-		JollyUser user = (JollyUser) session.getAttribute("user");
 		
-/*
+		JollyUser user = (JollyUser) session.getAttribute("user");
+
+		// Tékka ef email er til
 		if (userService.findByEmail(email) == null) {
 			model.addAttribute("errormessage", "Þetta netfang hefur ekki aðgang");
 			return "AddFriend";
-		} else if (!(user.getId() == userService.doesIDMatchFriend(user.getId(), userService.findByEmail(email).getId()))) {
+		// Annars tékka hvort email sé þegar vinur
+		} else if (user.isUserAFriend(email)) {
 			model.addAttribute("errormessage", "Þið eruð nú þegar vinir");
 			return "AddFriend";
+		// Hleypa í gegn
+		} else {
+			user.addFriend(userService.findByEmail(email));
+			userService.save(user);
+			return "Calendar";
 		}
-		else return "Calendar";
 		
-		*/
-		
-		return "Calendar";
 	}
-	
-
 
 }

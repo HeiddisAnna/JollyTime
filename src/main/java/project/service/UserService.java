@@ -49,6 +49,6 @@ public interface UserService {
     
     JollyUser doesEmailMatchPassword(String email, String password);
     
-    //Long doesIDMatchFriend(Long userID, Long friendID);
+    Long doesIDMatchFriend(Long userID, Long friendID);
 
 }

@@ -69,11 +69,11 @@ public class UserServiceImplementation implements UserService {
     	return repository.doesEmailMatchPassword(email, password);
     }
     
-    /*
+    
     @Override
     public Long doesIDMatchFriend(Long userID, Long friendID) {
     	return new Long(0); //repository.doesIDMatchFriend(userID, friendID);
     }
-    */
+    
     
 }

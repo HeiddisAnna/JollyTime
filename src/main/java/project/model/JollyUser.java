@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "jollyuser")
+@Table(name = "JollyUser")
 public class JollyUser {
 
     // Declare that this attribute is the id
@@ -28,9 +28,9 @@ public class JollyUser {
     @JoinColumn(name="CAL_ID")
     private Calendar calendar;
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-    		name="friends",
+    		name="Friends",
     		joinColumns=@JoinColumn(name="USER_ID", referencedColumnName="USER_ID"),
     		inverseJoinColumns=@JoinColumn(name="FRIEND_ID", referencedColumnName="USER_ID"))
     private Set<JollyUser> friends;
@@ -91,5 +91,18 @@ public class JollyUser {
     
     public void setCalendar(Calendar calendar) {
     	this.calendar = calendar;
+    }
+    
+    public void addFriend(JollyUser friend) {
+    	friends.add(friend);
+    }
+    
+    public Boolean isUserAFriend(String email) {
+    	for (JollyUser friend: friends) {
+    		if(friend.getEmail().equals(email)) {
+    			return true;
+    		}
+    	}
+    	return false;
     }
 }
