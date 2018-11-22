@@ -11,8 +11,8 @@
         <meta charset="utf-8">
         <title>Jolly Time</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
-        <link rel="stylesheet" href="grid.css">
-        <link rel="stylesheet" href="IndexForm.css">
+        <link rel="stylesheet" href="/css/grid.css">
+        <link rel="stylesheet" href="/css/IndexForm.css">
     </head>
 
     <body>
