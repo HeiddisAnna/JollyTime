@@ -1,0 +1,114 @@
+
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  
+  html {
+    box-sizing: border-box;
+  
+    font-family: 'Open Sans', helvetica, arial, sans-serif;
+    font-size: 16px;
+  }
+  
+  main {
+    margin: 0 auto;
+    max-width: 1500px;
+    padding: 20px;
+  }
+
+  /*Header*/
+
+  header {
+      min-height: 2em;
+      padding: 35px;
+  }
+
+  .JollyTime__header{
+    color: #6b8b3a;
+  }
+
+  header p {
+    color: #6b8b3a;
+  }
+
+  /*Main text*/
+  
+  body{
+      display: flex;
+      flex-direction: column;
+      width: 100vw;
+  }
+
+  .information__container {
+      display: flex;
+      flex-direction: column;
+      width: 40%;
+      align-self: center;
+  }
+
+  .account__header {
+    margin-top: 20px;
+    margin-bottom: 20px;  
+    text-align: center;
+    color: #6b8b3a;
+  }
+
+  .account__underHeader {
+      margin-top: 20px;
+      margin-bottom: 20px;  
+      text-align: center;
+      font-weight: bold;
+    }  
+    
+    /*Input*/
+    .account__info {
+        display: flex;
+        flex-direction: column;
+        width: 70%;
+        align-self: center;
+    }
+
+    .account__text {
+        display: flex;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+  
+    .account__textQuestion {
+        display: flex;
+        min-width: 85px;
+    }
+    .account__textAnswer {
+        display: flex;
+        min-width: 72%;
+    }
+
+
+
+
+  .account__buttonContainer {
+    display: flex;
+    align-self: center;
+  }
+
+  .account__button {
+      border-radius: 4px;
+      background-color: #6b8b3a;
+      border: 1px solid #000000;
+      padding-left: 25px;
+      padding-right: 25px;
+      padding-top: 7px;
+      padding-bottom: 7px;
+
+      display: flex;
+      margin-top: 20px;
+      margin-bottom: 20px;
+  }
+  .account__button:hover {
+    background-color:  #4e6629;
+  }
