@@ -38,6 +38,15 @@ public class EventController {
     			21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
     	
     	
+    	
+    	model.addAttribute("startYear", new String());
+    	model.addAttribute("startMonth", new String());
+    	model.addAttribute("startDay", new String());
+    	
+    	model.addAttribute("endYear", new String());
+    	model.addAttribute("endMonth", new String());
+    	model.addAttribute("endDay", new String());
+    	
     	model.addAttribute("startYears",  years);
     	model.addAttribute("startMonths",  months);
     	model.addAttribute("startDays",  days);
@@ -48,6 +57,16 @@ public class EventController {
     	
     	model.addAttribute("event", new Event());
         return "CreateEvent"; 
+    }
+    
+    @RequestMapping(value = "/bla", method = RequestMethod.POST)
+    public String bla() {
+    	return "Test";
+    }
+    
+    @RequestMapping(value = "/bla1", method = RequestMethod.POST)
+    public String bla1() {
+    	return "Test";
     }
     
 	@RequestMapping(value = "/eventcreated", method = RequestMethod.POST)
