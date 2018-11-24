@@ -6,7 +6,11 @@
 <html lang="en">
 
     <head>
+        <meta charset="utf-8">
         <title>Account created</title>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+        <link rel="stylesheet" href="./css/grid.css">
+        <link rel="stylesheet" href="./css/accountCreated.css">
     </head>
     <body>
 

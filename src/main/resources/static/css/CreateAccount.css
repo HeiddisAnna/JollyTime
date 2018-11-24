@@ -29,11 +29,11 @@
   }
 
   .JollyTime__header{
-    color: #6b8b3a;
+    color: #dd5f0b;
   }
 
   header p {
-    color: #6b8b3a;
+    color: #dd5f0b;
   }
 
   /*Main text*/
@@ -55,7 +55,7 @@
     margin-top: 20px;
     margin-bottom: 20px;  
     text-align: center;
-    color: #6b8b3a;
+    color: #dd5f0b;
   }
 
   .account__underHeader {
@@ -98,7 +98,7 @@
 
   .account__button {
       border-radius: 4px;
-      background-color: #6b8b3a;
+      background-color: #dd5f0b;
       border: 1px solid #000000;
       padding-left: 25px;
       padding-right: 25px;
@@ -110,5 +110,5 @@
       margin-bottom: 20px;
   }
   .account__button:hover {
-    background-color:  #4e6629;
+    background-color:  #e6813f;
   }
