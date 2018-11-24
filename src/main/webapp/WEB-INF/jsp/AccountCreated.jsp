@@ -14,9 +14,9 @@
     </head>
     <body>
 
-    	<h1>Account has been created</h1>
+    	<h1>${name}, your account has been created</h1>
     	
-    	<a href="index">Log In</a>
+    	<a href="index">Click here to log in</a>
 
     </body>
 
