@@ -24,9 +24,6 @@ public class JollyUser {
     @Column (name = "password")
     private String password;
     
-    @OneToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="CAL_ID")
-    private Calendar calendar;
     
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -34,15 +31,23 @@ public class JollyUser {
     		joinColumns=@JoinColumn(name="USER_ID", referencedColumnName="USER_ID"),
     		inverseJoinColumns=@JoinColumn(name="FRIEND_ID", referencedColumnName="USER_ID"))
     private Set<JollyUser> friends;
+    
+    @ManyToMany
+    @JoinTable(
+    		name="USER_EVENT",
+    		joinColumns=@JoinColumn(name="USER_ID", referencedColumnName="USER_ID"),
+    		inverseJoinColumns=@JoinColumn(name="EVENT_ID", referencedColumnName="EVENT_ID"))
+    private Set<Event> events;
 
     
     public JollyUser() {
     }
 
-    public JollyUser(String email, String name, String password) {
+    public JollyUser(String email, String name, String password, Set<Event> events) {
         this.email = email;
         this.password = password;
         this.name = name;
+        this.events = events;
     }
 
     public Long getId() {
@@ -85,13 +90,6 @@ public class JollyUser {
         this.password = password;
     }
 
-    public Calendar getCalendar() {
-    	return calendar;
-    }
-    
-    public void setCalendar(Calendar calendar) {
-    	this.calendar = calendar;
-    }
     
     public void addFriend(JollyUser friend) {
     	friends.add(friend);
@@ -105,4 +103,15 @@ public class JollyUser {
     	}
     	return false;
     }
+    
+    
+    public Set<Event> getEvents() {
+    	return events;
+    }
+    
+    public void setEvents(Set<Event> events) {
+    	this.events = events;
+    }
+    
+    
 }
