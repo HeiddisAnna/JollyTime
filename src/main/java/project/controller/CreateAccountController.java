@@ -44,7 +44,8 @@ public class CreateAccountController {
 		
 		userService.save(user);
 		
-		model.addAttribute("user", new JollyUser());
+		//model.addAttribute("user", new JollyUser());
+		model.addAttribute("name", user.getName());
 		
 		return "AccountCreated";
 	}
