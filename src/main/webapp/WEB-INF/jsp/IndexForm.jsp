@@ -42,7 +42,6 @@
                 </form>
                 <a class="LogIn__newAccount" href="createaccount">Create new account</a>
             </div>
-
             <footer>
                 <p class="footer__text"> Class HBV501G, University of Iceland </p>
             </footer>

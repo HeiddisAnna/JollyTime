@@ -1,5 +1,7 @@
 package project.controller;
 
+import java.util.Calendar;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.model.JollyUser;
+import project.Util;
 import project.service.UserService;
 import project.service.Implementation.UserServiceImplementation;
 
@@ -51,6 +54,7 @@ public class IndexController {
 		}
 		session.setAttribute("user",  user);
 		model.addAttribute("name", user.getName());
+		model.addAttribute("days", Util.getMonth(Calendar.getInstance().get(Calendar.MONTH)));
 		
 		return "Calendar";
 	}
