@@ -12,85 +12,104 @@
     <body>
     	<h1>Create Event</h1>
     	
-    	
+
+    	<form action="/bla1" method="POST" path="event">
+
+			<label class="Heiddis__sorry">Title:</label>
+            <form:input class="event__title" type="text" path="title" />
     
-    	
-    	<form:select action="/bla1" method="POST" path="event">
-    
+    		<p>Start</p>
     		<table>
+   
+    			<tr>
+    				<th>Year</th>
+    				<th>Month</th>
+    				<th>Day</th>
+    				<th>Time</th>
+    			</tr>
+    			<tr>
+    				
+    				<td>
+    					<form:select path="startYear">
+    						<form:option value="NONE" label="- - - Select - - -"/>
+    						<form:options items="${startYears}" />
+    					</form:select>
+    				</td>
     			
-    			<tr>
-    				<td>Year: </td>
-    				<td>
-    					<form:select path="startYear">
-    						<form:option value="NONE" label="- - - Select - - -"/>
-    						<form:options items="${startYears}" />
-    					</form:select>
-    				</td>
-    			</tr>
-    			<tr>
-    				<td>Year: </td>
-    				<td>
-    					<form:select path="startYear">
-    						<form:option value="NONE" label="- - - Select - - -"/>
-    						<form:options items="${startYears}" />
-    					</form:select>
-    				</td>
-    			</tr>
-    			<tr>
-    				<td>Month: </td>
+    				
     				<td>
     					<form:select path="startMonth">
     						<form:option value="NONE" label="- - - Select - - -"/>
     						<form:options items="${startMonths}" />
     					</form:select>
     				</td>
-    			</tr>
-    			<tr>
-    				<td>Day: </td>
+    			
+    				
     				<td>
     					<form:select path="startDay">
     						<form:option value="NONE" label="- - - Select - - -"/>
     						<form:options items="${startDays}" />
     					</form:select>
     				</td>
+    				
+    				<td>
+    					<form:select path="startTime">
+    						<form:option value="NONE" label="- - - Select - - -"/>
+    						<form:options items="${startTimes}" />
+    					</form:select>
+    				</td>
     			</tr>
     		</table>
     	
+    	
+    		<p>End</p>
     		<table>
     			<tr>
-    				<th>End: </th>
+    				<th>Year</th>
+    				<th>Month</th>
+    				<th>Day</th>
+    				<th>Time</th>
+    				
     			</tr>
     			<tr>
-    				<td>Year: </td>
     				<td>
     					<form:select path="endYear">
     						<form:option value="NONE" label="- - - Select - - -"/>
     						<form:options items="${endYears}" />
     					</form:select>
     				</td>
-    			</tr>
-    			<tr>
-    				<td>Month: </td>
+    		
     				<td>
     					<form:select path="endMonth">
     						<form:option value="NONE" label="- - - Select - - -"/>
     						<form:options items="${endMonths}" />
     					</form:select>
-    				</td>
-    			</tr>
-    			<tr>
-    				<td>Day: </td>
+   
     				<td>
     					<form:select path="endDay">
     						<form:option value="NONE" label="- - - Select - - -"/>
     						<form:options items="${endDays}" />
     					</form:select>
     				</td>
+    				
+    				<td>
+    					<form:select path="endTime">
+    						<form:option value="NONE" label="- - - Select - - -"/>
+    						<form:options items="${endTimes}" />
+    					</form:select>
+    				</td>
     			</tr>
     		</table>
+    		
+    		
+    		<label class="Heiddis__sorry">Description:</label>
+    		<textarea path="description" type="text" rows="4" cols="50"></textarea>
+    		
+    		
+    		
     		<input class="button" type="submit" name="createThisEvent" value="Create Event"/>
-    	</form:select>
+    
+    	</form>
     	
 
     </body>
