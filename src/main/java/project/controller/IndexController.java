@@ -58,4 +58,23 @@ public class IndexController {
 		
 		return "Calendar";
 	}
+	
+	@RequestMapping(value = "/seeFriends", method = RequestMethod.GET) 
+	public String seeFriends(Model model, HttpSession session) {
+		
+		JollyUser user = (JollyUser) session.getAttribute("user");
+		
+		model.addAttribute("friends", user.getFriends());
+		
+		return "Test2";
+		
+	}
+	
+	@RequestMapping(value = "/logOut", method = RequestMethod.GET) 
+	public String seeFriends(HttpSession session) {
+		session.removeAttribute("user");
+		return "IndexForm";
+		
+	}
+	
 }

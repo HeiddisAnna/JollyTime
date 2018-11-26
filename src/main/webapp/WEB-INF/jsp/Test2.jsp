@@ -16,6 +16,20 @@
     </head>
 
     <body>
-       <p>bla</p>
+        <h1>Friends</h1>
+       	
+        <c:choose>
+       		<c:when test="${not empty friends}">
+       			<table class="friends">
+       				<c:forEach var="friend" items="${friends}">
+       					<tr>
+       						<td>${friend.name}
+       					</tr>
+       				</c:forEach>
+       			</table>
+       		</c:when>
+        </c:choose>
+       
+       
     </body>	
 </html>

@@ -48,6 +48,18 @@
             	<input class="button" type="submit" name="bookDate" value="Book a Date"/>
             </div>
 		</form>	
+		
+		<form action="/seeFriends" method="GET">
+			<div class="SeeFriends__button">
+            	<input class="button" type="submit" name="seeFriends" value="See Friends"/>
+            </div>
+		</form>	
+		
+		<form action="/logOut" method="GET">
+			<div class="LogOut__button">
+            	<input class="button" type="submit" name="logOut" value="Log Out"/>
+            </div>
+		</form>	
 	
     	
     </body>

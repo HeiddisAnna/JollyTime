@@ -1,5 +1,7 @@
 package project.controller;
 
+import java.util.Calendar;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import project.Util;
 import project.model.JollyUser;
 import project.service.UserService;
 
@@ -45,7 +48,10 @@ public class AddFriendController {
 		} else {
 			user.addFriend(userService.findByEmail(email));
 			userService.save(user);
+			model.addAttribute("name", user.getName());
+			model.addAttribute("days", Util.getMonth(Calendar.getInstance().get(Calendar.MONTH)));
 			return "Calendar";
+			
 		}
 		
 	}
