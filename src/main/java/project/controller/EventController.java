@@ -1,6 +1,7 @@
 package project.controller;
 
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import project.Util;
 import project.model.Event;
 import project.model.JollyUser;
 import project.service.EventService;
@@ -117,6 +119,9 @@ public class EventController {
 		eventService.save(event);
 		userService.save(user);
 		
+		model.addAttribute("name", user.getName());
+		model.addAttribute("days", Util.getMonth(Calendar.getInstance().get(Calendar.MONTH)));
+		
 		return "Calendar";
 	}
 	
@@ -180,7 +185,10 @@ public class EventController {
 	}
 	
 	@RequestMapping(value = "/cancelEvent", method = RequestMethod.GET)
-	public String cancelEvent() {
+	public String cancelEvent(HttpSession session, Model model) {
+		JollyUser user = (JollyUser) session.getAttribute("user");
+		model.addAttribute("name", user.getName());
+		model.addAttribute("days", Util.getMonth(Calendar.getInstance().get(Calendar.MONTH)));
 		return "Calendar";
 	}
     
