@@ -13,10 +13,10 @@
     	<h1>Create Event</h1>
     	
 
-    	<form action="/bla1" method="POST" path="event">
+    	<form action="/eventcreated" method="POST" path="event">
 
 			<label class="Heiddis__sorry">Title:</label>
-            <form:input class="event__title" type="text" path="title" />
+            <input class="event__title" type="text" name="title" />
     
     		<p>Start</p>
     		<table>
@@ -30,7 +30,7 @@
     			<tr>
     				
     				<td>
-    					<form:select path="startYear">
+    					<form:select path="startYear" name="startYear">
     						<form:option value="NONE" label="- - - Select - - -"/>
     						<form:options items="${startYears}" />
     					</form:select>
@@ -38,7 +38,7 @@
     			
     				
     				<td>
-    					<form:select path="startMonth">
+    					<form:select path="startMonth" name="startMonth">
     						<form:option value="NONE" label="- - - Select - - -"/>
     						<form:options items="${startMonths}" />
     					</form:select>
@@ -46,14 +46,14 @@
     			
     				
     				<td>
-    					<form:select path="startDay">
+    					<form:select path="startDay" name="startDay">
     						<form:option value="NONE" label="- - - Select - - -"/>
     						<form:options items="${startDays}" />
     					</form:select>
     				</td>
     				
     				<td>
-    					<form:select path="startTime">
+    					<form:select path="startTime" name="startTime">
     						<form:option value="NONE" label="- - - Select - - -"/>
     						<form:options items="${startTimes}" />
     					</form:select>
@@ -73,27 +73,27 @@
     			</tr>
     			<tr>
     				<td>
-    					<form:select path="endYear">
+    					<form:select path="endYear" name="endYear">
     						<form:option value="NONE" label="- - - Select - - -"/>
     						<form:options items="${endYears}" />
     					</form:select>
     				</td>
     		
     				<td>
-    					<form:select path="endMonth">
+    					<form:select path="endMonth" name="endMonth">
     						<form:option value="NONE" label="- - - Select - - -"/>
     						<form:options items="${endMonths}" />
     					</form:select>
    
     				<td>
-    					<form:select path="endDay">
+    					<form:select path="endDay" name="endDay">
     						<form:option value="NONE" label="- - - Select - - -"/>
     						<form:options items="${endDays}" />
     					</form:select>
     				</td>
     				
     				<td>
-    					<form:select path="endTime">
+    					<form:select path="endTime" name="endTime">
     						<form:option value="NONE" label="- - - Select - - -"/>
     						<form:options items="${endTimes}" />
     					</form:select>
@@ -103,13 +103,18 @@
     		
     		
     		<label class="Heiddis__sorry">Description:</label>
-    		<textarea path="description" type="text" rows="4" cols="50"></textarea>
+    		<textarea name="description" type="text" placeholder="Write a description of the event here" rows="4" cols="50"></textarea>
     		
     		
-    		
+    		<div class="event__error"> <p>${errormessage}</p> </div>
     		<input class="button" type="submit" name="createThisEvent" value="Create Event"/>
     
     	</form>
+    	<form action="/cancelEvent" method="GET">
+			<div class="CreateEvent__button">
+            	<input class="button" type="submit" name="cancel" value="Cancel"/>
+            </div>
+		</form>
     	
 
     </body>

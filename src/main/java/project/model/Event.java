@@ -1,6 +1,7 @@
 package project.model;
 
-import java.sql.Date;
+
+import java.util.GregorianCalendar;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -21,14 +22,14 @@ public class Event {
     
     private String title;
     private String description;
-    private Date startDate;
-    private Date endDate;
+    private GregorianCalendar startDate;
+    private GregorianCalendar endDate;
 
 
     public Event() {
     }
 
-    public Event(String title, String description, Date startDate, Date endDate, Set<JollyUser> users) {
+    public Event(String title, String description, GregorianCalendar startDate, GregorianCalendar endDate, Set<JollyUser> users) {
     	this.title = title;
     	this.startDate = startDate;
     	this.endDate = endDate;
@@ -52,19 +53,19 @@ public class Event {
     	this.title = title;
     }
     
-    public Date getStartDate() {
+    public GregorianCalendar getStartDate() {
     	return startDate;
     }
     
-    public void setStartDate(Date startDate) {
+    public void setStartDate(GregorianCalendar startDate) {
     	this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public GregorianCalendar getEndDate() {
     	return endDate;
     }
     
-    public void setEndDate(Date endDate) {
+    public void setEndDate(GregorianCalendar endDate) {
     	this.endDate = endDate;
     }
  

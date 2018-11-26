@@ -49,5 +49,10 @@ public class AddFriendController {
 		}
 		
 	}
+	
+	@RequestMapping(value = "/cancelFriend", method = RequestMethod.GET)
+	public String cancelFriend() {
+		return "Calendar";
+	}
 
 }
