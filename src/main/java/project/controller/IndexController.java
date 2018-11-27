@@ -44,7 +44,7 @@ public class IndexController {
 		return "IndexForm";
 	}
 	
-	@RequestMapping(value = "/index", method = RequestMethod.POST)
+	@RequestMapping(value = "/calendar", method = RequestMethod.POST)
 	public String logIn(@RequestParam(value = "email") String email, @RequestParam(value = "password") String password, @RequestParam Optional<Integer> month, @RequestParam Optional<Integer> year, Model model, HttpSession session) {
 
 		JollyUser user = userService.findByEmail(email);

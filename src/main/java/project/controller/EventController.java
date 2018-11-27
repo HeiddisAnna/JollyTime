@@ -4,6 +4,7 @@ package project.controller;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -89,7 +90,8 @@ public class EventController {
 			@RequestParam(value = "startDay") String startDay, @RequestParam(value = "startTime") String startTime,
 			@RequestParam(value = "endYear") String endYear, @RequestParam(value = "endMonth") String endMonth, 
 			@RequestParam(value = "endDay") String endDay, @RequestParam(value = "endTime") String endTime,
-			Model model, HttpSession session) {
+			Model model, HttpSession session,
+			@RequestParam Optional<Integer> month, @RequestParam Optional<Integer> year) {
 		
 		
 		int startMonthNumber = findMonthNumber(startMonth);
@@ -120,7 +122,28 @@ public class EventController {
 		userService.save(user);
 		
 		model.addAttribute("name", user.getName());
-		model.addAttribute("days", Util.getMonth(Calendar.getInstance().get(Calendar.MONTH)));
+		
+		
+		int yearInt = -1;
+		int monthInt = -1;
+		if (year.isPresent()) {
+			yearInt = year.get();
+		} else {
+			yearInt = Calendar.getInstance().get(Calendar.YEAR);
+		}
+		
+		if (month.isPresent()) {
+			model.addAttribute("selectedMonth", month.get());
+		} else {
+			model.addAttribute("selectedMonth", Calendar.getInstance().get(Calendar.MONTH));
+			
+		}
+		
+		model.addAttribute("selectedMonth", monthInt);
+		model.addAttribute("selectedYear", yearInt);
+		model.addAttribute("month", Util.getMonth(monthInt, yearInt));
+		model.addAttribute("monthNames", Util.getMonthNames());
+		model.addAttribute("email", user.getEmail());
 		
 		return "Calendar";
 	}
@@ -184,13 +207,7 @@ public class EventController {
 		
 	}
 	
-	@RequestMapping(value = "/cancelEvent", method = RequestMethod.GET)
-	public String cancelEvent(HttpSession session, Model model) {
-		JollyUser user = (JollyUser) session.getAttribute("user");
-		model.addAttribute("name", user.getName());
-		model.addAttribute("days", Util.getMonth(Calendar.getInstance().get(Calendar.MONTH)));
-		return "Calendar";
-	}
+	
     
 
 

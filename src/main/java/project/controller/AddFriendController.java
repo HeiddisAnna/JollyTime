@@ -1,6 +1,7 @@
 package project.controller;
 
 import java.util.Calendar;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -32,7 +33,8 @@ public class AddFriendController {
 	}
 	
 	@RequestMapping(value = "/addThisFriend", method = RequestMethod.POST)
-	public String addThisFriend(@RequestParam(value = "email") String email, Model model, HttpSession session) {
+	public String addThisFriend(@RequestParam(value = "email") String email, Model model, HttpSession session, 
+			@RequestParam Optional<Integer> month, @RequestParam Optional<Integer> year) {
 		
 		JollyUser user = (JollyUser) session.getAttribute("user");
 
@@ -46,19 +48,16 @@ public class AddFriendController {
 			return "AddFriend";
 		// Hleypa í gegn
 		} else {
+			
 			user.addFriend(userService.findByEmail(email));
 			userService.save(user);
-			model.addAttribute("name", user.getName());
-			model.addAttribute("days", Util.getMonth(Calendar.getInstance().get(Calendar.MONTH)));
-			return "Calendar";
+
+			return "AddFriend";
 			
 		}
 		
 	}
 	
-	@RequestMapping(value = "/cancelFriend", method = RequestMethod.GET)
-	public String cancelFriend() {
-		return "Calendar";
-	}
+
 
 }

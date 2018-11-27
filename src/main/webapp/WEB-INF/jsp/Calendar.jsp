@@ -55,8 +55,8 @@
 	   			</div>
 	   		 <% }; %>
         </div>
-        <a id="nextButton" href="/index?year=<%=nextYear%>&month=<%=nextMonth%>&email=<%=email%>">Next Month</a>
-        <a id="prevButton" href="/index?year=<%=prevYear%>&month=<%=prevMonth%>&email=<%=email%>">Previous Month</a>
+        <a id="nextButton" href="/calendar?year=<%=nextYear%>&month=<%=nextMonth%>&email=<%=email%>" method="GET">Next Month</a>
+        <a id="prevButton" href="/calendar?year=<%=prevYear%>&month=<%=prevMonth%>&email=<%=email%>" method="GET">Previous Month</a>
         
 		</div>
 		<form action="/addFriend" method="GET">
