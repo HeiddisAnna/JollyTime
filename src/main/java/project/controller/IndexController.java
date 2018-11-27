@@ -1,6 +1,7 @@
 package project.controller;
 
 import java.util.Calendar;
+import java.util.Optional;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -44,7 +45,8 @@ public class IndexController {
 	}
 	
 	@RequestMapping(value = "/index", method = RequestMethod.POST)
-	public String logIn(@RequestParam(value = "email") String email, @RequestParam(value = "password") String password, Model model, HttpSession session) {
+	public String logIn(@RequestParam(value = "email") String email, @RequestParam(value = "password") String password, @RequestParam Optional<Integer> month, @RequestParam Optional<Integer> year, Model model, HttpSession session) {
+
 		JollyUser user = userService.findByEmail(email);
 		
 		//Ef notandinn er ekki til þarf hann að logga sig inn 
@@ -54,8 +56,26 @@ public class IndexController {
 		}
 		session.setAttribute("user",  user);
 		model.addAttribute("name", user.getName());
-		model.addAttribute("days", Util.getMonth(Calendar.getInstance().get(Calendar.MONTH)));
+		int yearInt = -1;
+		int monthInt = -1;
+		if (year.isPresent()) {
+			yearInt = year.get();
+		} else {
+			yearInt = Calendar.getInstance().get(Calendar.YEAR);
+		}
 		
+		if (month.isPresent()) {
+			model.addAttribute("selectedMonth", month.get());
+		} else {
+			model.addAttribute("selectedMonth", Calendar.getInstance().get(Calendar.MONTH));
+			
+		}
+		
+		model.addAttribute("selectedMonth", monthInt);
+		model.addAttribute("selectedYear", yearInt);
+		model.addAttribute("month", Util.getMonth(monthInt, yearInt));
+		model.addAttribute("monthNames", Util.getMonthNames());
+		model.addAttribute("email", user.getEmail());
 		return "Calendar";
 	}
 	
