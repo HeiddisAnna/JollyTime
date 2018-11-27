@@ -16,15 +16,15 @@
     	<form action="/bookThisDate" method="POST" path="event">
 
 			<label class="date__titleText">Title of your date:</label>
-            <input class="date__titleInput" type="text" name="date__title" />
-            
+            <input class="date__titleInput" type="text" name="title" />
+      
             <p class="friendList">Choose the friends you want to book a date with </p>
             <c:choose>
 				<c:when test="${not empty friends}">
 					<table class="friendList">
 						<c:forEach var="friend" items="${friends}">
 							<tr>
-								<td>${friend.name}</td>
+								<input type="checkbox" name="selectedFriends" value="${friend.email} checked = "checked"/> <c:out value = "${friend.name}"/><br>  
 							</tr>
 						</c:forEach>
 					</table>
@@ -34,12 +34,12 @@
 				</c:otherwise>
 			</c:choose>
             
-            
+ 
     
     		<h2>In which time period would you like to look for a date:</h2>
     		<table>
    
-    			<tr class="startPeriod>
+    			<tr>
     				<th>Year</th>
     				<th>Month</th>
     				<th>Day</th>
@@ -118,6 +118,24 @@
     				</td>
     			</tr>
     		</table>
+    		
+    		
+    		<h2>How long timie should the date take:</h2>
+    		<table>
+    			<tr>
+    				<th>Lengt of the date</th>
+    				
+    			</tr>
+    			<tr>
+    				<td>
+    					<form:select path="dateLength" name="dateLength">
+    						<form:option value="NONE" label="- - - Select - - -"/>
+    						<form:options items="${dateLengths}" />
+    					</form:select>
+    				</td>
+    			</tr>
+    		</table>
+    		
     		
     		
     		<label class="date__description">Description:</label>

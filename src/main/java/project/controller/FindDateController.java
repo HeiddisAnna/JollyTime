@@ -55,6 +55,10 @@ public class FindDateController {
     			"12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30",
     			"19:00","19:30","20:00","20:30","21:00","21:30","22:00","22:30","23:00","23:30"};
     	
+    	String[] length = {"30 min", "1 hour", "1.5 hour", "2 hours", "2.5 hours", "3 hours", "3.5 hours", "4 hours",
+    			"4.5 hours", "5 hours", "6 hours", "7 hours"};
+  
+    	
     	JollyUser user = (JollyUser)session.getAttribute("user");
     	model.addAttribute("friends", user.getFriends());
     	
@@ -69,6 +73,8 @@ public class FindDateController {
     	model.addAttribute("endDay", new String());
     	model.addAttribute("endTime", new String());
     	
+    	model.addAttribute("dateLength", new String());
+    	
     	model.addAttribute("description", new String());
     	model.addAttribute("title", new String());
     	
@@ -82,6 +88,8 @@ public class FindDateController {
     	model.addAttribute("endDays",  days);
     	model.addAttribute("endTimes", times);
     	
+    	model.addAttribute("dateLengths", length);
+    	
     	model.addAttribute("event", new Event());
         return "FindDate"; 
     }
@@ -93,7 +101,8 @@ public class FindDateController {
 			@RequestParam(value = "startYear") String startYear, @RequestParam(value = "startMonth") String startMonth, 
 			@RequestParam(value = "startDay") String startDay, @RequestParam(value = "startTime") String startTime,
 			@RequestParam(value = "endYear") String endYear, @RequestParam(value = "endMonth") String endMonth, 
-			@RequestParam(value = "endDay") String endDay, @RequestParam(value = "endTime") String endTime, @RequestParam(value = "friends")
+			@RequestParam(value = "endDay") String endDay, @RequestParam(value = "endTime") String endTime, 
+			@RequestParam(value = "selectedFriends") Set<String> selectedFriends, @RequestParam(value = "dateLength") String dateLength,
 			Model model, HttpSession session, @RequestParam Optional<Integer> month, @RequestParam Optional<Integer> year) {
 		
 		
@@ -119,6 +128,9 @@ public class FindDateController {
 		users.add(user);
 		
 		Event event = new Event(title, description, startDate, endDate, users);
+		
+		//for(int i=0; i<)
+		
 		
 		user.addEvent(event);
 		eventService.save(event);
