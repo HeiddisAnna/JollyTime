@@ -4,6 +4,7 @@ package project.controller;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -53,7 +54,7 @@ public class EventController {
     			"06:00","06:30","07:00","07:30","08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00",
     			"12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30",
     			"19:00","19:30","20:00","20:30","21:00","21:30","22:00","22:30","23:00","23:30"};
-
+    	
     	model.addAttribute("startYear", new String());
     	model.addAttribute("startMonth", new String());
     	model.addAttribute("startDay", new String());
@@ -89,7 +90,8 @@ public class EventController {
 			@RequestParam(value = "startDay") String startDay, @RequestParam(value = "startTime") String startTime,
 			@RequestParam(value = "endYear") String endYear, @RequestParam(value = "endMonth") String endMonth, 
 			@RequestParam(value = "endDay") String endDay, @RequestParam(value = "endTime") String endTime,
-			Model model, HttpSession session) {
+			Model model, HttpSession session,
+			@RequestParam Optional<Integer> month, @RequestParam Optional<Integer> year) {
 		
 		
 		int startMonthNumber = findMonthNumber(startMonth);
@@ -121,6 +123,28 @@ public class EventController {
 		
 		model.addAttribute("name", user.getName());
 		model.addAttribute("days", Util.getMonth(Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.YEAR)));
+		
+		
+		int yearInt = -1;
+		int monthInt = -1;
+		if (year.isPresent()) {
+			yearInt = year.get();
+		} else {
+			yearInt = Calendar.getInstance().get(Calendar.YEAR);
+		}
+		
+		if (month.isPresent()) {
+			model.addAttribute("selectedMonth", month.get());
+		} else {
+			model.addAttribute("selectedMonth", Calendar.getInstance().get(Calendar.MONTH));
+			
+		}
+		
+		model.addAttribute("selectedMonth", monthInt);
+		model.addAttribute("selectedYear", yearInt);
+		model.addAttribute("month", Util.getMonth(monthInt, yearInt));
+		model.addAttribute("monthNames", Util.getMonthNames());
+		model.addAttribute("email", user.getEmail());
 		
 		return "Calendar";
 	}
@@ -183,15 +207,5 @@ public class EventController {
 		return true;
 		
 	}
-	
-	@RequestMapping(value = "/cancelEvent", method = RequestMethod.GET)
-	public String cancelEvent(HttpSession session, Model model) {
-		JollyUser user = (JollyUser) session.getAttribute("user");
-		model.addAttribute("name", user.getName());
-		model.addAttribute("days", Util.getMonth(Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.YEAR)));
-		return "Calendar";
-	}
-    
-
 
 }

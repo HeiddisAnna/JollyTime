@@ -24,7 +24,7 @@
 
             <div class="LogIn">
                 <h2 class="LogIn__header">Please enter your email and password</h2>
-                <form class= "LogIn__container" action="/index" th:action="@{/index}" method="post">
+                <form class= "LogIn__container" action="/calendar" th:action="@{/calendar}" method="post">
                     <div class="LogIn__text">
                         <label class="LogIn__textQuestion" for="email__text">Email:</label>
                         <input class="LogIn__textAnswer" type="text" name="email" />

@@ -25,9 +25,9 @@
                 </div>
 			</form>
 		</div>
-		<form action="/cancelFriend" method="GET">
+		<form action="/cancel" method="GET">
 			<div class="AddFriend__button">
-            	<input class="button" type="submit" name="cancel" value="Cancel"/>
+            	<input class="button" type="submit" name="cancel" value="Done"/>
             </div>
 		</form>
 

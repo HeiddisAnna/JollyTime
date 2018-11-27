@@ -110,7 +110,7 @@
     		<input class="button" type="submit" name="createThisEvent" value="Create Event"/>
     
     	</form>
-    	<form action="/cancelEvent" method="GET">
+    	<form action="/cancel" method="GET">
 			<div class="CreateEvent__button">
             	<input class="button" type="submit" name="cancel" value="Cancel"/>
             </div>

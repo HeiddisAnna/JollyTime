@@ -1,62 +1,46 @@
 package project.controller;
 
+
+
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Optional;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
-import project.model.JollyUser;
 import project.Util;
+import project.model.JollyUser;
+import project.persistence.repositories.UserRepository;
 import project.service.UserService;
 import project.service.Implementation.UserServiceImplementation;
 
 @Controller
-public class IndexController {
-	
+public class CalendarController {
 	UserService userService;
 	
 	@Autowired
-	public IndexController(UserService userService) {
+	public CalendarController(UserService userService) {
 		this.userService = userService;
 	}
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
-		model.addAttribute("user", new JollyUser());
-		return "IndexForm";
-	}
-	
-	@RequestMapping(value = "/index", method = RequestMethod.GET) 
-	public String backHome(Model model) {
-		model.addAttribute("user", new JollyUser());
 
-		return "IndexForm";
-	}
 	
-	@RequestMapping(value = "/calendar", method = RequestMethod.POST)
-	public String logIn(@RequestParam(value = "email") String email, @RequestParam(value = "password") String password, @RequestParam Optional<Integer> month, @RequestParam Optional<Integer> year, Model model, HttpSession session) {
+	
+	@RequestMapping(value = "/calendar", method = RequestMethod.GET)
+	public String goToNextMonth(Model model, HttpSession session, @RequestParam Optional<Integer> month, @RequestParam Optional<Integer> year) {
 
-		JollyUser user = userService.findByEmail(email);
+		JollyUser user = (JollyUser) session.getAttribute("user");
 		
-		//Ef notandinn er ekki til þarf hann að logga sig inn 
-		if(user == null || !(user.getPassword().equals(password))) {
-			model.addAttribute("errormessage", "Vitlaust netfang eða lykilorð");
-			return "IndexForm";
-		}
-		session.setAttribute("user",  user);
 		model.addAttribute("name", user.getName());
-		model.addAttribute("friends", user.getFriends());
 		int yearInt = -1;
 		int monthInt = -1;
 		if (year.isPresent()) {
@@ -80,17 +64,39 @@ public class IndexController {
 		return "Calendar";
 	}
 	
-	@RequestMapping(value = "/seeFriends", method = RequestMethod.GET) 
-	public String seeFriends(Model model, HttpSession session) {
-		
+	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
+	public String cancelEvent(HttpSession session, Model model, @RequestParam Optional<Integer> month, @RequestParam Optional<Integer> year) {
 		JollyUser user = (JollyUser) session.getAttribute("user");
-		
+		model.addAttribute("name", user.getName());
 		model.addAttribute("friends", user.getFriends());
+		int yearInt = -1;
+		int monthInt = -1;
+		if (year.isPresent()) {
+			yearInt = year.get();
+		} else {
+			yearInt = Calendar.getInstance().get(Calendar.YEAR);
+		}
 		
-		return "Test2";
+		if (month.isPresent()) {
+			model.addAttribute("selectedMonth", month.get());
+		} else {
+			model.addAttribute("selectedMonth", Calendar.getInstance().get(Calendar.MONTH));
+			
+		}
 		
+		model.addAttribute("selectedMonth", monthInt);
+		model.addAttribute("selectedYear", yearInt);
+		model.addAttribute("month", Util.getMonth(monthInt, yearInt));
+		model.addAttribute("monthNames", Util.getMonthNames());
+		model.addAttribute("email", user.getEmail());
+		
+		
+		
+		return "Calendar";
 	}
+	
 	
 
 	
+  
 }

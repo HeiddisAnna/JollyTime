@@ -74,6 +74,19 @@
 			
 		</div>
 		
+		<c:choose>
+       		<c:when test="${not empty friends}">
+       			<table class="friends">
+       				<c:forEach var="friend" items="${friends}">
+       					<tr>
+       						<td>${friend.name}
+       					</tr>
+       				</c:forEach>
+       			</table>
+       		</c:when>
+        </c:choose>
+		
+		
 		<span class="hidden" id="selectedYear"><%=selectedYear%></span>
 		<span class="hidden" id="selectedMonth"><%=selectedMonth%></span>
 
@@ -91,8 +104,8 @@
 	   			</div>
 	   		 <% }; %>
         </div>
-        <a id="nextButton" href="/index?year=<%=nextYear%>&month=<%=nextMonth%>&email=<%=email%>">Next Month</a>
-        <a id="prevButton" href="/index?year=<%=prevYear%>&month=<%=prevMonth%>&email=<%=email%>">Previous Month</a>
+        <a id="nextButton" href="/calendar?year=<%=nextYear%>&month=<%=nextMonth%>&email=<%=email%>" method="GET">Next Month</a>
+        <a id="prevButton" href="/calendar?year=<%=prevYear%>&month=<%=prevMonth%>&email=<%=email%>" method="GET">Previous Month</a>
         
 		</div>
 		
