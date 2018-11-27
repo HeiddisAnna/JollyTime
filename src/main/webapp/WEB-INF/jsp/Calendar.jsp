@@ -37,6 +37,18 @@
     <body>
 		<h1>Calendar!!!</h1>
 		
+		<c:choose>
+       		<c:when test="${not empty friends}">
+       			<table class="friends">
+       				<c:forEach var="friend" items="${friends}">
+       					<tr>
+       						<td>${friend.name}
+       					</tr>
+       				</c:forEach>
+       			</table>
+       		</c:when>
+        </c:choose>
+		
 		
 		<span class="hidden" id="selectedYear"><%=selectedYear%></span>
 		<span class="hidden" id="selectedMonth"><%=selectedMonth%></span>
@@ -76,12 +88,7 @@
             	<input class="button" type="submit" name="bookDate" value="Book a Date"/>
             </div>
 		</form>	
-		
-		<form action="/seeFriends" method="GET">
-			<div class="SeeFriends__button">
-            	<input class="button" type="submit" name="seeFriends" value="See Friends"/>
-            </div>
-		</form>	
+			
 		
 		<form action="/logOut" method="GET">
 			<div class="LogOut__button">

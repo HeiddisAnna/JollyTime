@@ -68,6 +68,7 @@ public class CalendarController {
 	public String cancelEvent(HttpSession session, Model model, @RequestParam Optional<Integer> month, @RequestParam Optional<Integer> year) {
 		JollyUser user = (JollyUser) session.getAttribute("user");
 		model.addAttribute("name", user.getName());
+		model.addAttribute("friends", user.getFriends());
 		int yearInt = -1;
 		int monthInt = -1;
 		if (year.isPresent()) {

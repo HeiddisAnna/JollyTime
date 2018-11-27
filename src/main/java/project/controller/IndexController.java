@@ -56,6 +56,7 @@ public class IndexController {
 		}
 		session.setAttribute("user",  user);
 		model.addAttribute("name", user.getName());
+		model.addAttribute("friends", user.getFriends());
 		int yearInt = -1;
 		int monthInt = -1;
 		if (year.isPresent()) {
@@ -90,11 +91,6 @@ public class IndexController {
 		
 	}
 	
-	@RequestMapping(value = "/logOut", method = RequestMethod.GET) 
-	public String seeFriends(HttpSession session) {
-		session.removeAttribute("user");
-		return "IndexForm";
-		
-	}
+
 	
 }
