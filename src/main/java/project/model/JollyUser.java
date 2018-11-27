@@ -32,7 +32,7 @@ public class JollyUser {
     		inverseJoinColumns=@JoinColumn(name="FRIEND_ID", referencedColumnName="USER_ID"))
     private Set<JollyUser> friends;
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
     		name="USER_EVENT",
     		joinColumns=@JoinColumn(name="USER_ID", referencedColumnName="USER_ID"),
@@ -111,6 +111,10 @@ public class JollyUser {
     
     public void setEvents(Set<Event> events) {
     	this.events = events;
+    }
+    
+    public void addEvent(Event event) {
+    	events.add(event);
     }
     
     
