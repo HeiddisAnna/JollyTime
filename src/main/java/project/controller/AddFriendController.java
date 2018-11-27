@@ -37,10 +37,15 @@ public class AddFriendController {
 			@RequestParam Optional<Integer> month, @RequestParam Optional<Integer> year) {
 		
 		JollyUser user = (JollyUser) session.getAttribute("user");
+		JollyUser friend = userService.findByEmail(email);
 
 		// Tékka ef email er til
-		if (userService.findByEmail(email) == null) {
+		if (friend == null) {
 			model.addAttribute("errormessage", "Þetta netfang hefur ekki aðgang");
+			return "AddFriend";
+		// Ef user og vinur er sá sami
+		} else if (user.getEmail().equals(email)) {
+			model.addAttribute("errormessage", "Þú getur ekki verið vinur þinn");
 			return "AddFriend";
 		// Annars tékka hvort email sé þegar vinur
 		} else if (user.isUserAFriend(email)) {
@@ -49,10 +54,41 @@ public class AddFriendController {
 		// Hleypa í gegn
 		} else {
 			
-			user.addFriend(userService.findByEmail(email));
+			
+			
+			user.addFriend(friend);
+			friend.addFriend(user);
+			
 			userService.save(user);
-
-			return "AddFriend";
+			userService.save(friend);
+			
+			
+			model.addAttribute("name", user.getName());
+			model.addAttribute("friends", user.getFriends());
+			int yearInt = -1;
+			int monthInt = -1;
+			if (year.isPresent()) {
+				yearInt = year.get();
+			} else {
+				yearInt = Calendar.getInstance().get(Calendar.YEAR);
+			}
+			
+			if (month.isPresent()) {
+				model.addAttribute("selectedMonth", month.get());
+			} else {
+				model.addAttribute("selectedMonth", Calendar.getInstance().get(Calendar.MONTH));
+				
+			}
+			
+			model.addAttribute("selectedMonth", monthInt);
+			model.addAttribute("selectedYear", yearInt);
+			model.addAttribute("month", Util.getMonth(monthInt, yearInt));
+			model.addAttribute("monthNames", Util.getMonthNames());
+			model.addAttribute("email", user.getEmail());
+			
+			
+			
+			return "Calendar";
 			
 		}
 		

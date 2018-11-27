@@ -95,6 +95,12 @@ public class CalendarController {
 		return "Calendar";
 	}
 	
+	@RequestMapping(value = "/logOut")
+	public String logOut(Model model, HttpSession session) {
+		session.removeAttribute("user");
+		return "IndexForm";
+	}
+	
 	
 
 	

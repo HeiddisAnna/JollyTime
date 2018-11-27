@@ -16,8 +16,10 @@
     	<form action="/bookThisDate" method="POST" path="event">
 
 			<label class="date__titleText">Title of your date:</label>
+
             <input class="date__titleInput" type="text" name="title" />
       
+
             <p class="friendList">Choose the friends you want to book a date with </p>
             <c:choose>
 				<c:when test="${not empty friends}">
@@ -37,6 +39,7 @@
  
     
     		<h2>In which time period would you like to look for a date:</h2>
+    		
     		<table>
    
     			<tr>
