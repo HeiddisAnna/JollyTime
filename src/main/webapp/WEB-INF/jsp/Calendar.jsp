@@ -51,7 +51,7 @@
 			<li>
 				<a class="navbar-text" href="/logOut" method="GET" class="logOut_button name="logOut">Log out</a>
 			</li>
-			<li><a class="navbar-text">${name}</a></li>
+			<li style="float:right"><a class="navbar-text">${name}</a></li>
 		</ul>
 		
 		<div class="calendar">
