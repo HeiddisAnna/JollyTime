@@ -120,7 +120,7 @@ public class EventController {
 		userService.save(user);
 		
 		model.addAttribute("name", user.getName());
-		model.addAttribute("days", Util.getMonth(Calendar.getInstance().get(Calendar.MONTH)));
+		model.addAttribute("days", Util.getMonth(Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.YEAR)));
 		
 		return "Calendar";
 	}
@@ -188,7 +188,7 @@ public class EventController {
 	public String cancelEvent(HttpSession session, Model model) {
 		JollyUser user = (JollyUser) session.getAttribute("user");
 		model.addAttribute("name", user.getName());
-		model.addAttribute("days", Util.getMonth(Calendar.getInstance().get(Calendar.MONTH)));
+		model.addAttribute("days", Util.getMonth(Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.YEAR)));
 		return "Calendar";
 	}
     

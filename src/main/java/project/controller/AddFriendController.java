@@ -49,7 +49,7 @@ public class AddFriendController {
 			user.addFriend(userService.findByEmail(email));
 			userService.save(user);
 			model.addAttribute("name", user.getName());
-			model.addAttribute("days", Util.getMonth(Calendar.getInstance().get(Calendar.MONTH)));
+			model.addAttribute("days", Util.getMonth(Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.YEAR)));
 			return "Calendar";
 			
 		}
