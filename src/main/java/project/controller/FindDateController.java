@@ -120,8 +120,6 @@ public class FindDateController {
 			friends.add(friendUser);
 		}
 			
-		
-		
 		int startMonthNumber = findMonthNumber(startMonth);
 		int endMonthNumber = findMonthNumber(endMonth);
 		// Tékka hvort sé fyllt inn í title, start date og end date 
@@ -148,23 +146,26 @@ public class FindDateController {
 		
 		Long newDateLength = findDateLength(dateLength);
 		
-		Set<Event> finalEvents = findDateAlgo(events, users, newDateLength);
+		Set<Event> finalEvents = findDateAlgo(events, users, newDateLength, model);
 		
 		
 		model.addAttribute("name", user.getName());
-		model.addAttribute("friends", friends);
+		model.addAttribute("selectedFriends", friends);
 		model.addAttribute("events", finalEvents);
 		
 		return "SuggestedDates";
 	}
 	
-	public Set<Event> findDateAlgo(Set<Event> events, Set<JollyUser> users, Long dateLength){
+	public Set<Event> findDateAlgo(Set<Event> events, Set<JollyUser> users, Long dateLength, Model model){
 		Iterator<Event> eventIterator = events.iterator();
 		Iterator<JollyUser> usersIterator = users.iterator();
+		if (users.isEmpty()) model.addAttribute("errormessage", "piss");
 		
 		while(usersIterator.hasNext()) {
+			
 			JollyUser user = usersIterator.next();
-			if (user.getEvents() != null) {
+			if(user == null) { model.addAttribute("errormessage", "User not found"); }
+			else if (!user.getEvents().isEmpty()) { 
 				Iterator<Event> userEventIterator = user.getEvents().iterator();
 				while(userEventIterator.hasNext()) {
 					Event userEvent = userEventIterator.next();
@@ -192,7 +193,7 @@ public class FindDateController {
 							events.remove(event);	
 						}
 					}
-				}
+				} 
 			}
 		}
 		return events;

@@ -21,7 +21,7 @@
             	<h1 class = JollyTime__header>Jolly Time</h1>
             	<p>Calendar for you and your friends</p>
             </header>
-
+			<p>${errormessage}</p>
             <div class="suggestedDates">
                 <h2 class="suggestedDates__header">Suggested dates</h2>
                 <p class="friendList">Selected friends</p>
@@ -45,8 +45,7 @@
 							<table class="eventList">
 								<c:forEach var="event" items="${events}">
 									<tr>
-										<input type="checkbox" name="selectedFriends" value="${event.id} 
-										 checked = "checked"/> <c:out value="${event.startDate} value="${event.endDate}/><br>  
+										<input type="checkbox" name="selectedFriends" value="${event.id} checked = "checked"/> <c:out value="${event.startDate}"/><c:out value="${event.endDate}"/><br>  
 									</tr>
 								</c:forEach>
 							</table>
@@ -57,7 +56,7 @@
 					</c:choose>
 					
 					<div class="CreateEvent__button">
-            			<input class="button" type="submit" name="cancel" value="Cancel"/>
+            			<input class="button" type="submit" name="cancel" value="Suggest date"/>
             		</div>
 				</form>
         </main>

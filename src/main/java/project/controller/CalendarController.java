@@ -61,6 +61,14 @@ public class CalendarController {
 		return "IndexForm";
 	}
 	
+	@RequestMapping(value = "/sendSuggestedDates")
+	public String sendSuggestedDates(Model model, HttpSession session) {
+		JollyUser user = (JollyUser) session.getAttribute("user");
+		Util.addNecessaryAttributesForCalendar(Optional.empty(), Optional.empty(), user, model);
+		
+		return "Calendar";
+	}
+	
 	
 
 	

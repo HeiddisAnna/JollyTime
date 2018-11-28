@@ -46,7 +46,6 @@
     				<th>Year</th>
     				<th>Month</th>
     				<th>Day</th>
-    				<th>Time</th>
     			</tr>
     			<tr>
     				
@@ -72,13 +71,6 @@
     						<form:options items="${startDays}" />
     					</form:select>
     				</td>
-    				
-    				<td>
-    					<form:select path="startTime" name="startTime">
-    						<form:option value="NONE" label="- - - Select - - -"/>
-    						<form:options items="${startTimes}" />
-    					</form:select>
-    				</td>
     			</tr>
     		</table>
     	
@@ -89,7 +81,6 @@
     				<th>Year</th>
     				<th>Month</th>
     				<th>Day</th>
-    				<th>Time</th>
     				
     			</tr>
     			<tr>
@@ -110,13 +101,6 @@
     					<form:select path="endDay" name="endDay">
     						<form:option value="NONE" label="- - - Select - - -"/>
     						<form:options items="${endDays}" />
-    					</form:select>
-    				</td>
-    				
-    				<td>
-    					<form:select path="endTime" name="endTime">
-    						<form:option value="NONE" label="- - - Select - - -"/>
-    						<form:options items="${endTimes}" />
     					</form:select>
     				</td>
     			</tr>
