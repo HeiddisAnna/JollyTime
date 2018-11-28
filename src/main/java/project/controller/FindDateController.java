@@ -127,14 +127,14 @@ public class FindDateController {
 		Set<JollyUser> users = new HashSet<JollyUser>();
 		users.add(user);
 		
-		Event event = new Event(title, description, startDate, endDate, users);
+		//Event event = new Event(title, description, startDate, endDate, users);
 		
 		//for(int i=0; i<)
 		
 		
-		user.addEvent(event);
-		eventService.save(event);
-		userService.save(user);
+		//user.addEvent(event);
+		//eventService.save(event);
+		//userService.save(user);
 		
 		model.addAttribute("name", user.getName());
 		model.addAttribute("friends", user.getFriends());
