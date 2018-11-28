@@ -122,6 +122,7 @@ public class EventController {
 		userService.save(user);
 		
 		model.addAttribute("name", user.getName());
+		model.addAttribute("days", Util.getMonth(Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.YEAR)));
 		
 		
 		int yearInt = -1;
@@ -206,9 +207,5 @@ public class EventController {
 		return true;
 		
 	}
-	
-	
-    
-
 
 }

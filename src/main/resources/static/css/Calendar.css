@@ -1,0 +1,98 @@
+
+/*html {
+    box-sizing: border-box;
+  
+    font-family: 'Open Sans', helvetica, arial, sans-serif;
+    font-size: 16px;
+  }
+  
+  body {
+    margin: 0 auto;
+    max-width: 1500px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-content: center;
+    height: 100vh;
+    width: 80vw;
+    align-items: center;
+  }*/
+
+#navbar-Calendar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #dd5f0b;
+}
+
+#date {
+	height: 200px;
+}
+
+.hidden {
+	visibility: hidden;
+}
+
+.year {
+	float: right;
+	color: #db732e;
+}
+
+#navbar-Calendar li {
+    float: left;
+}
+
+.navbar-text {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+#navbar-Calendar li a:hover:not(.active) {
+    background-color: #db732e;
+}
+
+
+#monthContainer {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: stretch;
+	align-content: flex-start;
+}
+
+.day {
+	flex: 0 1 auto;
+	align-self: auto;
+    width: 130px;
+    height: 130px;
+    border: 1px solid #dd5f0b;
+    padding: 5px;
+    margin: 5px;
+}
+
+#daysNames {
+	margin-top: 100px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: stretch;
+	align-content: flex-start;
+}
+
+#daysNames div {
+	display: inline;
+    color: #dd5f0b;
+    text-align: center;
+    flex: 0 1 auto;
+	align-self: auto;
+    width: 130px;
+    padding: 5px;
+    margin: 5px;
+}

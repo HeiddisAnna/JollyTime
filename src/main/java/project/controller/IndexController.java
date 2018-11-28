@@ -1,6 +1,7 @@
 package project.controller;
 
 import java.util.Calendar;
+
 import java.util.Optional;
 
 import javax.servlet.ServletContext;
@@ -55,28 +56,7 @@ public class IndexController {
 			return "IndexForm";
 		}
 		session.setAttribute("user",  user);
-		model.addAttribute("name", user.getName());
-		model.addAttribute("friends", user.getFriends());
-		int yearInt = -1;
-		int monthInt = -1;
-		if (year.isPresent()) {
-			yearInt = year.get();
-		} else {
-			yearInt = Calendar.getInstance().get(Calendar.YEAR);
-		}
-		
-		if (month.isPresent()) {
-			model.addAttribute("selectedMonth", month.get());
-		} else {
-			model.addAttribute("selectedMonth", Calendar.getInstance().get(Calendar.MONTH));
-			
-		}
-		
-		model.addAttribute("selectedMonth", monthInt);
-		model.addAttribute("selectedYear", yearInt);
-		model.addAttribute("month", Util.getMonth(monthInt, yearInt));
-		model.addAttribute("monthNames", Util.getMonthNames());
-		model.addAttribute("email", user.getEmail());
+		Util.addNecessaryAttributesForCalendar(Optional.empty(), Optional.empty(), user, model);
 		return "Calendar";
 	}
 	
