@@ -2,7 +2,6 @@ package project.controller;
 
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -26,7 +25,6 @@ import project.service.UserService;
 
 @Controller
 public class EventController {
-
 
 	EventService eventService;
 	UserService userService;
@@ -105,11 +103,15 @@ public class EventController {
 			return "CreateEvent";
 		}
 
-		
 		String[] startHours = startTime.split(":");
 		String[] endHours = endTime.split(":");
-		GregorianCalendar startDate = new GregorianCalendar(Integer.parseInt(startYear), startMonthNumber, Integer.parseInt(startDay), Integer.parseInt(startHours[0]), Integer.parseInt(startHours[1]));
-		GregorianCalendar endDate = new GregorianCalendar(Integer.parseInt(endYear), endMonthNumber, Integer.parseInt(endDay), Integer.parseInt(endHours[0]), Integer.parseInt(endHours[1]));
+		Calendar startDate = Calendar.getInstance();
+
+		startDate.set(Integer.parseInt(startYear), startMonthNumber, Integer.parseInt(startDay), Integer.parseInt(startHours[0]), Integer.parseInt(startHours[1]));
+		
+		Calendar endDate = Calendar.getInstance();
+		endDate.set(Integer.parseInt(endYear), endMonthNumber, Integer.parseInt(endDay), Integer.parseInt(endHours[0]), Integer.parseInt(endHours[1]));
+		
 		JollyUser user = (JollyUser) session.getAttribute("user");
 		
 		Set<JollyUser> users = new HashSet<JollyUser>();

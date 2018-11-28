@@ -2,7 +2,6 @@ package project.model;
 
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -64,7 +63,7 @@ public class Event {
     	return startDate;
     }
     
-    public void setStartDate(GregorianCalendar startDate) {
+    public void setStartDate(Calendar startDate) {
     	this.startDate = startDate;
     }
 
@@ -72,10 +71,9 @@ public class Event {
     	return endDate;
     }
     
-    public void setEndDate(GregorianCalendar endDate) {
+    public void setEndDate(Calendar endDate) {
     	this.endDate = endDate;
     }
- 
     
     public String getDescription() {
     	return description;
