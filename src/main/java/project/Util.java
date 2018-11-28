@@ -4,6 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Optional;
+
+import org.springframework.ui.Model;
+
+import project.model.JollyUser;
 
 public class Util {
 
@@ -100,6 +105,64 @@ public class Util {
 		}
 
 		return list;
+	}
+	
+	public static int getWeekday(int year, int month) {
+		calendar.set(Calendar.YEAR, year);
+		calendar.set(Calendar.MONTH, month);
+		calendar.set(Calendar.DAY_OF_MONTH, 1);
+		
+		int extraDivs = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+		
+		return extraDivs;
+	}
+	
+	public static void addNecessaryAttributesForCalendar(Optional<Integer> month, Optional<Integer> year, JollyUser user, Model model) {
+		model.addAttribute("name", user.getName());
+		model.addAttribute("friends", user.getFriends());
+		model.addAttribute("email", user.getEmail());
+
+		int yearInt = Calendar.getInstance().get(Calendar.YEAR);
+		int monthInt = Calendar.getInstance().get(Calendar.MONTH);
+		int dayInt = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+		
+		if (year.isPresent()) {
+			yearInt = year.get();
+		}
+		
+		if (month.isPresent()) {
+			monthInt = month.get();
+		}
+		
+		int selectedYear = yearInt;
+		int selectedMonth = monthInt;
+		
+		int nextYear = selectedYear;
+        int nextMonth = selectedMonth + 1;
+        if (nextMonth > 11) {
+        	nextYear += 1;
+        	nextMonth = nextMonth % 12;
+        }
+        
+        int prevYear = selectedYear;
+        int prevMonth = selectedMonth - 1;
+        
+        if (prevMonth < 0) {
+        	prevYear -= 1;
+        	prevMonth = 11;
+        }
+        
+        model.addAttribute("extraDivsWeekdays", getWeekday(yearInt, monthInt));
+        model.addAttribute("nextYear", nextYear);
+        model.addAttribute("nextMonth", nextMonth);
+        model.addAttribute("prevYear", prevYear);
+        model.addAttribute("prevMonth", prevMonth);
+        model.addAttribute("selectedDay", dayInt);
+        model.addAttribute("selectedMonth", monthInt);
+		model.addAttribute("selectedYear", yearInt);
+		model.addAttribute("month", getMonth(monthInt, yearInt));
+		model.addAttribute("monthNames", getMonthNames());
+		model.addAttribute("email", user.getEmail());
 	}
 	
 }
