@@ -139,7 +139,7 @@ public class FindDateController {
 		
 	
 		
-		Event event = new Event(title, description, startDate, endDate, users);
+		//Event event = new Event(title, description, startDate, endDate, users);
 		
 		Set<Event> events = new HashSet<Event>();
 		events.add(event);
@@ -148,6 +148,7 @@ public class FindDateController {
 		
 		Set<Event> finalEvents = findDateAlgo(events, users, newDateLength, model);
 		
+
 		
 		model.addAttribute("name", user.getName());
 		model.addAttribute("selectedFriends", friends);
