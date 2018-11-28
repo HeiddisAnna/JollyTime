@@ -146,7 +146,7 @@
     		
     		
     		<div class="event__error"> <p>${errormessage}</p> </div>
-    		<input class="button" type="submit" name="createThisEvent" value="Create Event"/>
+    		<input class="button" type="submit" name="findDate" value="Find Date"/>
     
     	</form>
     	<form action="/cancelDate" method="GET">

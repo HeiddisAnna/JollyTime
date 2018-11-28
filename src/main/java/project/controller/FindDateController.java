@@ -100,9 +100,9 @@ public class FindDateController {
 	@RequestMapping(value = "/bookThisDate", method = RequestMethod.POST)
 	public String accountCreated(@RequestParam(value = "title") String title, @RequestParam(value = "description") String description,
 			@RequestParam(value = "startYear") String startYear, @RequestParam(value = "startMonth") String startMonth, 
-			@RequestParam(value = "startDay") String startDay, @RequestParam(value = "startTime") String startTime,
+			@RequestParam(value = "startDay") String startDay, //@RequestParam(value = "startTime") String startTime,
 			@RequestParam(value = "endYear") String endYear, @RequestParam(value = "endMonth") String endMonth, 
-			@RequestParam(value = "endDay") String endDay, @RequestParam(value = "endTime") String endTime, 
+			@RequestParam(value = "endDay") String endDay, //@RequestParam(value = "endTime") String endTime, 
 			@RequestParam(value = "selectedFriends") Set<String> selectedFriends, @RequestParam(value = "dateLength") String dateLength,
 			Model model, HttpSession session, @RequestParam Optional<Integer> month, @RequestParam Optional<Integer> year) {
 		
@@ -110,11 +110,14 @@ public class FindDateController {
 		Set<JollyUser> users = new HashSet<JollyUser>();
 		users.add(user);
 		
+		Set<JollyUser> friends = new HashSet<JollyUser>();
+		
 		//Bætum vinum við users
 		Iterator<String> friendIterator =  selectedFriends.iterator();
 		while(friendIterator.hasNext()) {
 			JollyUser friendUser = userService.findByEmail(friendIterator.next());
 			users.add(friendUser);
+			friends.add(friendUser);
 		}
 			
 		
@@ -122,21 +125,21 @@ public class FindDateController {
 		int startMonthNumber = findMonthNumber(startMonth);
 		int endMonthNumber = findMonthNumber(endMonth);
 		// Tékka hvort sé fyllt inn í title, start date og end date 
-		if (checkForData(title, startYear, startMonth, startDay, startTime, endYear, endMonth, endDay, endTime) == false) {
+		if (checkForData(title, startYear, startMonth, startDay, endYear, endMonth, endDay) == false) {
 			model.addAttribute("errormessage", "Please fill in title, start time and end time");
 			return "CreateEvent";
-		} else if (checkForTime(startYear, startMonthNumber, startDay, startTime, endYear, endMonthNumber, endDay, endTime) == false) {
+		} else if (checkForTime(startYear, startMonthNumber, startDay,  endYear, endMonthNumber, endDay) == false) {
 			model.addAttribute("errormessage", "Please, make sure start date occurs before end date");
 			return "CreateEvent";
 		}
 
 		
-		String[] startHours = startTime.split(":");
-		String[] endHours = endTime.split(":");
-		GregorianCalendar startDate = new GregorianCalendar(Integer.parseInt(startYear), startMonthNumber, Integer.parseInt(startDay), Integer.parseInt(startHours[0]), Integer.parseInt(startHours[1]));
-		GregorianCalendar endDate = new GregorianCalendar(Integer.parseInt(endYear), endMonthNumber, Integer.parseInt(endDay), Integer.parseInt(endHours[0]), Integer.parseInt(endHours[1]));
+		//String[] startHours = startTime.split(":");
+		//String[] endHours = endTime.split(":");
+		GregorianCalendar startDate = new GregorianCalendar(Integer.parseInt(startYear), startMonthNumber, Integer.parseInt(startDay), 0, 0);
+		GregorianCalendar endDate = new GregorianCalendar(Integer.parseInt(endYear), endMonthNumber, Integer.parseInt(endDay), 23, 59);
 		
-		
+	
 		
 		Event event = new Event(title, description, startDate, endDate, users);
 		
@@ -149,29 +152,10 @@ public class FindDateController {
 		
 		
 		model.addAttribute("name", user.getName());
-		model.addAttribute("friends", user.getFriends());
-		int yearInt = -1;
-		int monthInt = -1;
-		if (year.isPresent()) {
-			yearInt = year.get();
-		} else {
-			yearInt = Calendar.getInstance().get(Calendar.YEAR);
-		}
+		model.addAttribute("friends", friends);
+		model.addAttribute("events", finalEvents);
 		
-		if (month.isPresent()) {
-			model.addAttribute("selectedMonth", month.get());
-		} else {
-			model.addAttribute("selectedMonth", Calendar.getInstance().get(Calendar.MONTH));
-			
-		}
-		
-		model.addAttribute("selectedMonth", monthInt);
-		model.addAttribute("selectedYear", yearInt);
-		model.addAttribute("month", Util.getMonth(monthInt, yearInt));
-		model.addAttribute("monthNames", Util.getMonthNames());
-
-		
-		return "Calendar";
+		return "SuggestedDates";
 	}
 	
 	public Set<Event> findDateAlgo(Set<Event> events, Set<JollyUser> users, Long dateLength){
@@ -180,33 +164,34 @@ public class FindDateController {
 		
 		while(usersIterator.hasNext()) {
 			JollyUser user = usersIterator.next();
-			Iterator<Event> userEventIterator = user.getEvents().iterator();
-			while(userEventIterator.hasNext()) {
-				Event userEvent = userEventIterator.next();
-				while(eventIterator.hasNext()) {
-					Event event = eventIterator.next();
-					if(event.getLength() < dateLength) {
-						events.remove(event);
-					} else {
-						if(userEvent.startsBefore(event) && event.endsAfter(userEvent)) {
-							Event newEvent = new Event(event.getTitle(), event.getDescription(), userEvent.getEndDate(), event.getEndDate(), users);
-							events.add(newEvent);
+			if (user.getEvents() != null) {
+				Iterator<Event> userEventIterator = user.getEvents().iterator();
+				while(userEventIterator.hasNext()) {
+					Event userEvent = userEventIterator.next();
+					while(eventIterator.hasNext()) {
+						Event event = eventIterator.next();
+						if(event.getLength() < dateLength) {
+							events.remove(event);
 						} else {
-							if(event.startsBefore(userEvent) && event.endsAfter(userEvent)) {
-								Event firstNewEvent = new Event(event.getTitle(), event.getDescription(), event.getStartDate(), userEvent.getEndDate(), users);
-								Event secondNewEvent = new Event(event.getTitle(), event.getDescription(), userEvent.getEndDate(), event.getEndDate(), users);
-								events.add(firstNewEvent);
-								events.add(secondNewEvent);
+							if(userEvent.startsBefore(event) && event.endsAfter(userEvent)) {
+								Event newEvent = new Event(event.getTitle(), event.getDescription(), userEvent.getEndDate(), event.getEndDate(), users);
+								events.add(newEvent);
 							} else {
-								if(event.startsBefore(userEvent) && userEvent.endsAfter(event)) {
-									Event newEvent = new Event(event.getTitle(), event.getDescription(), event.getStartDate(), userEvent.getStartDate(), users);
-									events.add(newEvent);
+								if(event.startsBefore(userEvent) && event.endsAfter(userEvent)) {
+									Event firstNewEvent = new Event(event.getTitle(), event.getDescription(), event.getStartDate(), userEvent.getEndDate(), users);
+									Event secondNewEvent = new Event(event.getTitle(), event.getDescription(), userEvent.getEndDate(), event.getEndDate(), users);
+									events.add(firstNewEvent);
+									events.add(secondNewEvent);
+								} else {
+									if(event.startsBefore(userEvent) && userEvent.endsAfter(event)) {
+										Event newEvent = new Event(event.getTitle(), event.getDescription(), event.getStartDate(), userEvent.getStartDate(), users);
+										events.add(newEvent);
+									}
 								}
 							}
+							events.remove(event);	
 						}
-						events.remove(event);	
 					}
-					
 				}
 			}
 		}
@@ -268,13 +253,10 @@ public class FindDateController {
 	}
 	
 	
-	public Boolean checkForTime(String startYear, int startMonthNumber, String startDay, String startTime,
-			String endYear, int endMonthNumber, String endDay, String endTime) {
+	public Boolean checkForTime(String startYear, int startMonthNumber, String startDay, 
+			String endYear, int endMonthNumber, String endDay) {
 		
-		String[] st  = startTime.split(":");
-		String newStartTime = st[0].concat(st[1]);
-		String[] et  = endTime.split(":");
-		String newEndTime = et[0].concat(et[1]);
+
 		if (Integer.parseInt(startYear) > Integer.parseInt(endYear)) {
 			return false;
 		} else if (Integer.parseInt(startYear) == Integer.parseInt(endYear) && startMonthNumber > endMonthNumber) {
@@ -282,19 +264,17 @@ public class FindDateController {
 		} else if (Integer.parseInt(startYear) == Integer.parseInt(endYear) && startMonthNumber > endMonthNumber
 				&& Integer.parseInt(startDay) > Integer.parseInt(endDay)) {
 			return false;
-		} else if (Integer.parseInt(startYear) == Integer.parseInt(endYear) && startMonthNumber > endMonthNumber
-				&& Integer.parseInt(startDay) == Integer.parseInt(endDay) && Integer.parseInt(newStartTime) > Integer.parseInt(newEndTime)) {
-			return false;
+		
 		}
 		return true;
 	}
 	
-	public Boolean checkForData(String title, String startYear, String startMonth, String startDay, String startTime,
-			String endYear, String endMonth, String endDay, String endTime) {
+	public Boolean checkForData(String title, String startYear, String startMonth, String startDay, 
+			String endYear, String endMonth, String endDay) {
 		
 		if (title == null || startYear.equals("- - - Select - - -") || startMonth.equals("- - - Select - - -") || startDay.equals("- - - Select - - -") || 
-				startTime.equals("- - - Select - - -") || endYear.equals("- - - Select - - -") || endMonth.equals("- - - Select - - -") || 
-				endDay.equals("- - - Select - - -") || endTime.equals("- - - Select - - -")) {
+				endYear.equals("- - - Select - - -") || endMonth.equals("- - - Select - - -") || 
+				endDay.equals("- - - Select - - -") ) {
 			return false;
 		}
 		return true;
