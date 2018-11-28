@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import project.Util;
 import project.model.JollyUser;
+import project.service.EventService;
 import project.service.UserService;
 
 
@@ -21,10 +22,12 @@ import project.service.UserService;
 public class AddFriendController {
 	
 	UserService userService;
+	EventService eventService;
 	
 	@Autowired
-	public AddFriendController(UserService userService) {
+	public AddFriendController(UserService userService, EventService eventService) {
 		this.userService = userService;
+		this.eventService = eventService;
 	}
 
 	@RequestMapping(value = "/addFriend", method = RequestMethod.GET)
@@ -62,7 +65,7 @@ public class AddFriendController {
 			userService.save(user);
 			userService.save(friend);
 			
-			Util.addNecessaryAttributesForCalendar(Optional.empty(), Optional.empty(), user, model);
+			Util.addNecessaryAttributesForCalendar(Optional.empty(), Optional.empty(), user, model, eventService);
 			
 			return "Calendar";
 		}

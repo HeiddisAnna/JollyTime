@@ -3,6 +3,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="java.model.Event"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="project.Util"%>
 <%
@@ -31,6 +33,7 @@ response.setDateHeader ("Expires", 0);
         
         String selectedMonthName = ((HashMap<Integer, String>) request.getAttribute("monthNames")).get(selectedMonth);
         ArrayList<Util.Day> month = (ArrayList<Util.Day>) request.getAttribute("month");
+        List<Event> eventsInMonth = (List<>) request.getAttribute("eventsInMonth");
     %>
     <head>
     
@@ -45,104 +48,108 @@ response.setDateHeader ("Expires", 0);
     </head>
     <body>
 		<ul id="navbar-Calendar">
-			<li><a class="navbar-text">Jolly Time</a></li>
-			<li>
-				<a class="navbar-text" href="/addEvent" method="GET" class="AddEvent_button name="addEvent">Create Event</a>
-			</li>
-			<li>
-				<a class="navbar-text" href="/bookDate" method="GET" class="BookDate_button name="bookDate">Book a date</a>
-			</li>
-			<li style="float:right">
-				<a class="navbar-text" href="/logOut" method="GET" class="logOut_button name="logOut">Log out</a>
-			</li>
-			<li style="float:right"><a class="navbar-text">${name}</a></li>
+			<li><a class="navbar-text" style="float:left">Jolly Time</a></li>
+			<li><a class="navbar-text" style="float:left" href="/addEvent" method="GET" class="AddEvent_button name="addEvent">Create Event</a></li>
+			<li><a class="navbar-text" style="float:left" href="/bookDate" method="GET" class="BookDate_button name="bookDate">Book a date</a></li>
+			<li><a class="navbar-text" style="float:right" href="/logOut" method="GET" class="logOut_button name="logOut">Log out</a></li>
+			<li><a class="navbar-text" style="float:right">${name}</a></li>
 		</ul>
 		
 		<div class="calendar">
 		
-			<div class="w3-sidebar w3-bar-block w3-card" style="width:230px;">
-				<div class="content">
-					<div id="date">
-						<h1><%=selectedMonthName%> <%=selectedDay%></h1>
+			<div class="w3-sidebar w3-bar-block w3-card sidebar" style="width:230px;">
+				<h1 class="date w3-bar-item"><%=selectedMonthName%> <%=selectedDay%></h1>
+				
+				<div class="friends">
+				<hr>
+				<h5 class="friends-title">Your Friends:</h5>
+				<hr>
+					<div class="friendsList w3-bar-item">
+						<c:choose>
+				       		<c:when test="${not empty friends}">
+				       			<table class="friends-table">
+				       				<c:forEach var="friend" items="${friends}">
+				       					<tr>
+				       						<td>${friend.name}
+				       					</tr>
+				       				</c:forEach>
+				       			</table>
+				       		</c:when>
+						 </c:choose>
+					</div>
+					<div class="addFriend w3-bar-item">
+						<a class="w3-button w3-xlarge w3-circle w3-card-4 sidebar-text addFriend_button" href="/addFriend" method="GET" name="addFriend">+</a>
 					</div>
 					
-					<div class="notes">
-						<ul class="friends">
-							<li>
-								<a class="sidebar-text" href="/addFriend" method="GET" class="AddFriend_button name="addFriend">Add a freind</a>
-							</li>
-							<li>
-								<a class="sidebar-text" href="/seeFriends" method="GET" class="seeFriends_button name="seeFriends">See Friends</a>
-							</li>
-						</ul>
-					</div>
+					<div id="EventContainer">
+			     	    <% for(int i = 0; i < eventsInMonth.size(); i++) {
+			      		  		Util.Event event = eventsInMonth.get(i);
+			   				%>
+			   				<div class="event">
+			       				<span><%=event.title%></span>
+			   				</div>
+			   			 <% }; %>
+			   		</div>
+					
 				</div>
 			</div>
-			
-		</div>
-		
-		<c:choose>
-       		<c:when test="${not empty friends}">
-       			<table class="friends">
-       				<c:forEach var="friend" items="${friends}">
-       					<tr>
-       						<td>${friend.name}
-       					</tr>
-       				</c:forEach>
-       			</table>
-       		</c:when>
-        </c:choose>
         
         <div class="w3-container" style="margin-left:230px">
-        	<div class="content">
-        		<div class="year-title">
-        			<h2 class="year">${selectedYear}</h2>
-        		</div>
-				
-				<span class="hidden" id="selectedYear"><%=selectedYear%></span>
-				<span class="hidden" id="selectedMonth"><%=selectedMonth%></span>
-				
-				<div id="daysNames">
-					<div class="dayName">
-						<span>Sunday</span>
-					</div>
-					<div class="dayName">
-						<span>Monday</span>
-					</div>
-					<div class="dayName">
-						<span>Tuesday</span>
-					</div>
-					<div class="dayName">
-						<span>Wednesday</span>
-					</div>
-					<div class="dayName">
-						<span>Thursday</span>
-					</div>
-					<div class="dayName">
-						<span>Friday</span>
-					</div>
-					<div class="dayName">
-						<span>Saturday</span>
-					</div>
-				</div>
-		
-				<div id="monthContainer">
-					<% for(int i = 0; i < extraDivsWeekdays; i++) { %>
-						<div class="day"></div>
-					<% } %>
-		     	    <% for(int i = 0; i < month.size(); i++) {
-		      		  		Util.Day day = month.get(i);
-		   				%>
-		   				<div class="day">
-		       				<span><%=day.day%></span>
-		   				</div>
-		   			 <% }; %>
-		   		</div>
-		    	<a id="nextButton" href="/calendar?year=<%=nextYear%>&month=<%=nextMonth%>&email=<%=email%>" method="GET">Next Month</a>
-		   		<a id="prevButton" href="/calendar?year=<%=prevYear%>&month=<%=prevMonth%>&email=<%=email%>" method="GET">Previous Month</a>
+        	<div class="year-title">
+        		<h1 class="year">${selectedYear}</h1>
         	</div>
-		</div>
-      </div>
+        	<div class="month-content">
+        			<div id="prevNextButtons">
+        				<div id="privMonth">
+		        			<a id="prevButton" href="/calendar?year=<%=prevYear%>&month=<%=prevMonth%>&email=<%=email%>" method="GET">Previous Month</a>
+		        		</div>
+		        		<div id="nextMonth">
+		        			<a id="nextButton" href="/calendar?year=<%=nextYear%>&month=<%=nextMonth%>&email=<%=email%>" method="GET">Next Month</a>
+		        		</div>
+		        		
+		        	</div>
+					<span class="hidden" id="selectedYear"><%=selectedYear%></span>
+					<span class="hidden" id="selectedMonth"><%=selectedMonth%></span>
+					
+					<div id="daysNames">
+						<div class="dayName">
+							<span>Sunday</span>
+						</div>
+						<div class="dayName">
+							<span>Monday</span>
+						</div>
+						<div class="dayName">
+							<span>Tuesday</span>
+						</div>
+						<div class="dayName">
+							<span>Wednesday</span>
+						</div>
+						<div class="dayName">
+							<span>Thursday</span>
+						</div>
+						<div class="dayName">
+							<span>Friday</span>
+						</div>
+						<div class="dayName">
+							<span>Saturday</span>
+						</div>
+					</div>
+			
+					<div id="monthContainer">
+						<% for(int i = 0; i < extraDivsWeekdays; i++) { %>
+							<div class="day"></div>
+						<% } %>
+			     	    <% for(int i = 0; i < month.size(); i++) {
+			      		  		Util.Day day = month.get(i);
+			   				%>
+			   				<div class="day">
+			       				<span><%=day.day%></span>
+			   				</div>
+			   			 <% }; %>
+			   		</div>
+	        	</div>
+			</div>
+      	</div>
 		
         <script src="/scripts/calendar.js"></script>
     </body>

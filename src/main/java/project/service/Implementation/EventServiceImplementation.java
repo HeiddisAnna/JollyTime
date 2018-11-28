@@ -8,6 +8,8 @@ import project.model.JollyUser;
 import project.persistence.repositories.EventRepository;
 import project.service.EventService;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -54,4 +56,19 @@ public class EventServiceImplementation implements EventService {
         return repository.findOne(id);
     }
 
+    @Override
+    public List<Event> getAllEventsInMonth(int year, int month) {
+    	Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.YEAR, year);
+		calendar.set(Calendar.MONTH, month);
+		calendar.set(Calendar.DAY_OF_MONTH, 1);
+		
+		Timestamp from = new Timestamp(calendar.getTimeInMillis());
+		
+		calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+		
+		Timestamp to = new Timestamp(calendar.getTimeInMillis());
+		
+		return repository.findAllInRange(from, to);
+	} 
 }

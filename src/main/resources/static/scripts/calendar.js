@@ -13,6 +13,19 @@ var monthNames = [
 	"December",
 ]
 
+window.onscroll = function() {myFunction()};
+
+var navbar = document.getElementById("navbar-Calendar");
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+
 function getSelectedYear() {
 	const selectedYearString = document.getElementById("selectedYear").innerHTML;
 	return parseInt(selectedYearString, 10);

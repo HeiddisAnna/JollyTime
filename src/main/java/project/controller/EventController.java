@@ -120,31 +120,9 @@ public class EventController {
 		user.addEvent(event);
 		eventService.save(event);
 		userService.save(user);
+	
 		
-		model.addAttribute("name", user.getName());
-		model.addAttribute("days", Util.getMonth(Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.YEAR)));
-		
-		
-		int yearInt = -1;
-		int monthInt = -1;
-		if (year.isPresent()) {
-			yearInt = year.get();
-		} else {
-			yearInt = Calendar.getInstance().get(Calendar.YEAR);
-		}
-		
-		if (month.isPresent()) {
-			model.addAttribute("selectedMonth", month.get());
-		} else {
-			model.addAttribute("selectedMonth", Calendar.getInstance().get(Calendar.MONTH));
-			
-		}
-		
-		model.addAttribute("selectedMonth", monthInt);
-		model.addAttribute("selectedYear", yearInt);
-		model.addAttribute("month", Util.getMonth(monthInt, yearInt));
-		model.addAttribute("monthNames", Util.getMonthNames());
-		model.addAttribute("email", user.getEmail());
+		Util.addNecessaryAttributesForCalendar(month, year, user, model, eventService);
 		
 		return "Calendar";
 	}

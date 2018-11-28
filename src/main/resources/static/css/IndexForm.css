@@ -84,7 +84,7 @@
   .button {
       border-radius: 4px;
       background-color: #dd5f0b;
-      border: 1px solid #000000;
+      border: 1px solid #dd5f0b;
       padding-left: 25px;
       padding-right: 25px;
       padding-top: 7px;
@@ -95,7 +95,7 @@
       margin-bottom: 20px;
   }
   .button:hover {
-    background-color: #e6813f;
+    background-color: #f38609;
   }
 
   .LogIn__newAccount {

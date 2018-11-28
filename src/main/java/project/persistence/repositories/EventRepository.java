@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import project.model.Event;
 import project.model.JollyUser;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -37,5 +38,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     @Query(value = "SELECT p FROM Event p WHERE p.id = ?1")
     Event findOne(Long id);
+    
+    @Query(value = "SELECT p FROM Event p WHERE p.startDate <= ?1 AND p.endDate >= ?2")
+    List<Event> findAllInRange(Timestamp lower, Timestamp upper);
 
 }

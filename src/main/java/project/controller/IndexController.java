@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import project.model.JollyUser;
 import project.Util;
+import project.service.EventService;
 import project.service.UserService;
 import project.service.Implementation.UserServiceImplementation;
 
@@ -26,10 +27,12 @@ import project.service.Implementation.UserServiceImplementation;
 public class IndexController {
 	
 	UserService userService;
+	EventService eventService;
 	
 	@Autowired
-	public IndexController(UserService userService) {
+	public IndexController(UserService userService, EventService eventService) {
 		this.userService = userService;
+		this.eventService = eventService;
 	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -56,7 +59,7 @@ public class IndexController {
 			return "IndexForm";
 		}
 		session.setAttribute("user",  user);
-		Util.addNecessaryAttributesForCalendar(Optional.empty(), Optional.empty(), user, model);
+		Util.addNecessaryAttributesForCalendar(Optional.empty(), Optional.empty(), user, model, eventService);
 		return "Calendar";
 	}
 	

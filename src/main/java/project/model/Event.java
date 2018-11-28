@@ -1,6 +1,7 @@
 package project.model;
 
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
@@ -19,17 +20,23 @@ public class Event {
 
     @ManyToMany(mappedBy="events")
     private Set<JollyUser> users;
-    
+
     private String title;
     private String description;
-    private GregorianCalendar startDate;
-    private GregorianCalendar endDate;
+    
+    @Column(name="startDate")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar startDate;
+    
+    @Column(name="endDate")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar endDate;
 
 
     public Event() {
     }
 
-    public Event(String title, String description, GregorianCalendar startDate, GregorianCalendar endDate, Set<JollyUser> users) {
+    public Event(String title, String description, Calendar startDate, Calendar endDate, Set<JollyUser> users) {
     	this.title = title;
     	this.startDate = startDate;
     	this.endDate = endDate;
@@ -53,7 +60,7 @@ public class Event {
     	this.title = title;
     }
     
-    public GregorianCalendar getStartDate() {
+    public Calendar getStartDate() {
     	return startDate;
     }
     
@@ -61,7 +68,7 @@ public class Event {
     	this.startDate = startDate;
     }
 
-    public GregorianCalendar getEndDate() {
+    public Calendar getEndDate() {
     	return endDate;
     }
     
