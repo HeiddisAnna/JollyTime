@@ -3,6 +3,7 @@ package project.controller;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
 
@@ -105,6 +106,18 @@ public class FindDateController {
 			@RequestParam(value = "selectedFriends") Set<String> selectedFriends, @RequestParam(value = "dateLength") String dateLength,
 			Model model, HttpSession session, @RequestParam Optional<Integer> month, @RequestParam Optional<Integer> year) {
 		
+		JollyUser user = (JollyUser)session.getAttribute("user");
+		Set<JollyUser> users = new HashSet<JollyUser>();
+		users.add(user);
+		
+		//Bætum vinum við users
+		Iterator<String> friendIterator =  selectedFriends.iterator();
+		while(friendIterator.hasNext()) {
+			JollyUser friendUser = userService.findByEmail(friendIterator.next());
+			users.add(friendUser);
+		}
+			
+		
 		
 		int startMonthNumber = findMonthNumber(startMonth);
 		int endMonthNumber = findMonthNumber(endMonth);
@@ -122,19 +135,18 @@ public class FindDateController {
 		String[] endHours = endTime.split(":");
 		GregorianCalendar startDate = new GregorianCalendar(Integer.parseInt(startYear), startMonthNumber, Integer.parseInt(startDay), Integer.parseInt(startHours[0]), Integer.parseInt(startHours[1]));
 		GregorianCalendar endDate = new GregorianCalendar(Integer.parseInt(endYear), endMonthNumber, Integer.parseInt(endDay), Integer.parseInt(endHours[0]), Integer.parseInt(endHours[1]));
-		JollyUser user = (JollyUser) session.getAttribute("user");
 		
-		Set<JollyUser> users = new HashSet<JollyUser>();
-		users.add(user);
+		
 		
 		Event event = new Event(title, description, startDate, endDate, users);
 		
-		//for(int i=0; i<)
+		Set<Event> events = new HashSet<Event>();
+		events.add(event);
 		
+		Long newDateLength = findDateLength(dateLength);
 		
-		user.addEvent(event);
-		eventService.save(event);
-		userService.save(user);
+		Set<Event> finalEvents = findDateAlgo(events, users, newDateLength);
+		
 		
 		model.addAttribute("name", user.getName());
 		model.addAttribute("friends", user.getFriends());
@@ -162,6 +174,46 @@ public class FindDateController {
 		return "Calendar";
 	}
 	
+	public Set<Event> findDateAlgo(Set<Event> events, Set<JollyUser> users, Long dateLength){
+		Iterator<Event> eventIterator = events.iterator();
+		Iterator<JollyUser> usersIterator = users.iterator();
+		
+		while(usersIterator.hasNext()) {
+			JollyUser user = usersIterator.next();
+			Iterator<Event> userEventIterator = user.getEvents().iterator();
+			while(userEventIterator.hasNext()) {
+				Event userEvent = userEventIterator.next();
+				while(eventIterator.hasNext()) {
+					Event event = eventIterator.next();
+					if(event.getLength() < dateLength) {
+						events.remove(event);
+					} else {
+						if(userEvent.startsBefore(event) && event.endsAfter(userEvent)) {
+							Event newEvent = new Event(event.getTitle(), event.getDescription(), userEvent.getEndDate(), event.getEndDate(), users);
+							events.add(newEvent);
+						} else {
+							if(event.startsBefore(userEvent) && event.endsAfter(userEvent)) {
+								Event firstNewEvent = new Event(event.getTitle(), event.getDescription(), event.getStartDate(), userEvent.getEndDate(), users);
+								Event secondNewEvent = new Event(event.getTitle(), event.getDescription(), userEvent.getEndDate(), event.getEndDate(), users);
+								events.add(firstNewEvent);
+								events.add(secondNewEvent);
+							} else {
+								if(event.startsBefore(userEvent) && userEvent.endsAfter(event)) {
+									Event newEvent = new Event(event.getTitle(), event.getDescription(), event.getStartDate(), userEvent.getStartDate(), users);
+									events.add(newEvent);
+								}
+							}
+						}
+						events.remove(event);	
+					}
+					
+				}
+			}
+		}
+		return events;
+	}
+	
+	
 	public int findMonthNumber(String month) {
 		if (month.equals("January")) {
 			return 0;
@@ -187,6 +239,34 @@ public class FindDateController {
 			return 10;
 		} else return 11;
 	}
+	
+	
+	public Long findDateLength(String dateLength) {
+		if (dateLength.equals("30 min")) {
+			return new Long(30);
+		} else if (dateLength.equals("1 hour")) {
+			return new Long(60);
+		} else if (dateLength.equals("1.5 hour")) {
+			return new Long(90);
+		} else if (dateLength.equals("2 hours")) {
+			return new Long(120);
+		} else if (dateLength.equals("2.5 hours")) {
+			return new Long(150);
+		} else if (dateLength.equals("3 hours")) {
+			return new Long(180);
+		} else if (dateLength.equals("3.5 hours")) {
+			return new Long(210);
+		} else if (dateLength.equals("4 hours")) {
+			return new Long(240);
+		} else if (dateLength.equals("4.5 hours")) {
+			return new Long(270);
+		} else if (dateLength.equals("5 hours")) {
+			return new Long(300);
+		} else if (dateLength.equals("6 hours")) {
+			return new Long(360);
+		} else return new Long(420);
+	}
+	
 	
 	public Boolean checkForTime(String startYear, int startMonthNumber, String startDay, String startTime,
 			String endYear, int endMonthNumber, String endDay, String endTime) {

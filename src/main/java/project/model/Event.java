@@ -2,6 +2,7 @@ package project.model;
 
 
 import java.util.GregorianCalendar;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -89,6 +90,42 @@ public class Event {
     
     public void addUser(JollyUser user) {
     	users.add(user);
+    }
+    
+    public Long getLength() {
+    	Date start = startDate.getTime();
+    	Date end = endDate.getTime();
+    	
+    	Long diff = (end.getTime() - start.getTime())/1000;
+    	return diff;
+    }
+    
+    /* 
+     * Fall sem skilar true ef eventinn sem tekinn er inn í fallið (that)
+     * byrjar á eftir eventnum sem við erum í (this).  
+     * Annars skilar fallið false
+     */
+    public Boolean startsBefore(Event that) {
+    	Date thisStartDate = this.startDate.getTime();
+    	Date thatStartDate = that.startDate.getTime();
+    	
+    	Long diff = thisStartDate.getTime() - thatStartDate.getTime();
+    	if (diff <= 0) return true;
+    	return false;
+    }
+    
+    /* 
+     * Fall sem skilar true ef eventinn sem tekinn er inn í fallið (that)
+     * endar á eftir eventnum sem við erum í (this).  
+     * Annars skilar fallið false
+     */
+    public Boolean endsAfter(Event that) {
+    	Date thisEndDate = this.endDate.getTime();
+    	Date thatEndDate = that.endDate.getTime();
+    	
+    	Long diff = thisEndDate.getTime() - thatEndDate.getTime();
+    	if (diff >= 0) return true;
+    	return false;
     }
     
 }
