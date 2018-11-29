@@ -4,10 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.ui.Model;
 
+import project.model.Event;
 import project.model.JollyUser;
 import project.service.EventService;
 
@@ -30,12 +32,24 @@ public class Util {
 		public String monthName;
 		public int day;
 		public String dayName;
+		public boolean isToday;
+		public String description;
 		
-		public Day(int month, String monthName, int day, String dayName) {
+		public Day(int month, String monthName, int day, String dayName, ArrayList<Event> events) {
 			this.month = month;
 			this.monthName = monthName;
 			this.day = day;
 			this.dayName = dayName;
+			this.isToday = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == day;
+			
+			String descr = "";
+			for (int i = 0; i < events.size(); i++) {
+				descr += events.get(i).title;
+				if (i + 1 < events.size()) {
+					descr += "\n";
+				}
+			}
+			this.description = descr;
 		}
 	}
 	
@@ -88,7 +102,7 @@ public class Util {
 		return list;
 	}*/
 	
-	public static ArrayList<Day> getMonth(int month, int year) {
+	public static ArrayList<Day> getMonth(int month, int year, EventService service) {
 		ArrayList<Day> list = new ArrayList<Day>();
 		
 		calendar.set(Calendar.YEAR, year);
@@ -97,11 +111,23 @@ public class Util {
 		int maxDay = calendar.getActualMaximum((Calendar.DAY_OF_MONTH));
 
 		String monthName = getMonthNames().get(calendar.get(Calendar.MONTH));
-	
-		for (int j = 0; j < maxDay; j++) {
-			calendar.set(Calendar.DAY_OF_MONTH, j + 1);
+		
+		List<Event> events = service.getAllEventsInMonth(year, month);
+
+		for (int i = 0; i < maxDay; i++) {
+			int dayInt = i + 1;
+			calendar.set(Calendar.DAY_OF_MONTH, dayInt);
 	    	String dayName = getDayNames().get(calendar.get(Calendar.DAY_OF_WEEK));
-	    	Util.Day day = new Util.Day(calendar.get(Calendar.MONTH), monthName, calendar.get(Calendar.DAY_OF_MONTH),dayName);
+	    		    	
+	    	ArrayList<Event> eventsForDay = new ArrayList<Event>();
+	    	for (int j = 0; j < events.size(); j++) {
+	    		Event event = events.get(j);
+	    		if (event.getDays(month, year).contains(dayInt)) {
+	    			eventsForDay.add(event);
+	    		}
+	    	}
+	    	
+	    	Util.Day day = new Util.Day(calendar.get(Calendar.MONTH), monthName, calendar.get(Calendar.DAY_OF_MONTH),dayName, eventsForDay);
 	    	list.add(day);
 		}
 
@@ -162,8 +188,8 @@ public class Util {
         model.addAttribute("selectedDay", dayInt);
         model.addAttribute("selectedMonth", monthInt);
 		model.addAttribute("selectedYear", yearInt);
-		model.addAttribute("days", getMonth(Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.YEAR)));
-		model.addAttribute("month", getMonth(monthInt, yearInt));
+		model.addAttribute("days", getMonth(Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.YEAR), service));
+		model.addAttribute("month", getMonth(monthInt, yearInt, service));
 		model.addAttribute("monthNames", getMonthNames());
 		model.addAttribute("email", user.getEmail());
 	}

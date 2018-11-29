@@ -8,12 +8,30 @@
 
     <head>
         <title>Book a date</title>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    	<meta charset="utf-8">
+        <title>Calendar</title>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+        <link rel="stylesheet" href="/css/grid.css">
+        <link rel="stylesheet" href="/css/FindDate.css">
     </head>
     <body>
+    
+    	<ul id="navbar-Calendar">
+			<li><a class="navbar-text" style="float:left" href="/calendar">Jolly Time</a></li>
+			<li><a class="navbar-text" style="float:left" href="/addEvent" method="GET" class="AddEvent_button name="addEvent">Create Event</a></li>
+			<li><a class="navbar-text" style="float:left" href="/bookDate" method="GET" class="BookDate_button name="bookDate">Book a date</a></li>
+			<li><a class="navbar-text" style="float:right" href="/logOut" method="GET" class="logOut_button name="logOut">Log out</a></li>
+			<li><a class="navbar-text" style="float:right">${name}</a></li>
+		</ul>
+    
     	<h1>Book a date with friends</h1>
     	
 
-    	<form action="/bookThisDate" method="POST" path="event">
+    	<form class="content" action="/bookThisDate" method="POST" path="event">
 
 			<label class="date__titleText">Title of your date:</label>
 
@@ -130,10 +148,12 @@
     		
     		
     		<div class="event__error"> <p>${errormessage}</p> </div>
-    		<input class="button" type="submit" name="findDate" value="Find Date"/>
+    		<div class="createEvent__button">
+    			<input class="button" type="submit" name="findDate" value="Find Date"/>
+    		</div>
     
     	</form>
-    	<form action="/cancelDate" method="GET">
+    	<form class="cancelButton" action="/cancelDate" method="GET">
 			<div class="CreateEvent__button">
             	<input class="button" type="submit" name="cancel" value="Cancel"/>
             </div>

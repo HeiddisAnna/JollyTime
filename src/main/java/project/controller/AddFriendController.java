@@ -44,15 +44,15 @@ public class AddFriendController {
 
 		// Tékka ef email er til
 		if (friend == null) {
-			model.addAttribute("errormessage", "Þetta netfang hefur ekki aðgang");
+			model.addAttribute("errormessage", "This email does not have an account");
 			return "AddFriend";
 		// Ef user og vinur er sá sami
 		} else if (user.getEmail().equals(email)) {
-			model.addAttribute("errormessage", "Þú getur ekki verið vinur þinn");
+			model.addAttribute("errormessage", "You can't be your own friend, sorry");
 			return "AddFriend";
 		// Annars tékka hvort email sé þegar vinur
 		} else if (user.isUserAFriend(email)) {
-			model.addAttribute("errormessage", "Þið eruð nú þegar vinir");
+			model.addAttribute("errormessage", "You are already friends");
 			return "AddFriend";
 		// Hleypa í gegn
 		} else {

@@ -29,11 +29,13 @@
     
     	<h1>Create Event</h1>
     	
+		
+    	<form class="content" action="/eventcreated" method="POST" path="event">
 
-    	<form action="/eventcreated" method="POST" path="event">
-
-			<label class="title-event">Title:</label>
-            <input class="event_title" type="text" name="title" />
+			<div id="titleEvent>
+				<label class="title-event">Title:</label>
+            	<input class="event_title" type="text" name="title" />
+            </div>
     
     		<p>Starts</p>
     		<table>
@@ -124,11 +126,13 @@
     		
     		
     		<div class="event__error"> <p>${errormessage}</p> </div>
-    		<input class="button" type="submit" name="createThisEvent" value="Create Event"/>
+    		<div class="createEvent__button">
+    			<input class="button" type="submit" name="createThisEvent" value="Create Event"/>
+    		</div>
     
     	</form>
-    	<form action="/cancel" method="GET">
-			<div class="CreateEvent__button">
+    	<form class="cancelButton" action="/cancel" method="GET">
+			<div class="createEvent_button">
             	<input class="button" type="submit" name="cancel" value="Cancel"/>
             </div>
 		</form>
