@@ -1,6 +1,7 @@
 package project.service.Implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Temporal;
 import org.springframework.stereotype.Service;
 
 import project.model.Event;
@@ -12,6 +13,8 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+
+import javax.persistence.TemporalType;
 
 @Service
 public class EventServiceImplementation implements EventService {
@@ -58,17 +61,15 @@ public class EventServiceImplementation implements EventService {
 
     @Override
     public List<Event> getAllEventsInMonth(int year, int month) {
-    	Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.YEAR, year);
-		calendar.set(Calendar.MONTH, month);
-		calendar.set(Calendar.DAY_OF_MONTH, 1);
+    	Calendar from = Calendar.getInstance();
+		from.set(Calendar.YEAR, year);
+		from.set(Calendar.MONTH, month);
+		from.set(Calendar.DAY_OF_MONTH, 1);
 		
-		Timestamp from = new Timestamp(calendar.getTimeInMillis());
+		Calendar to = Calendar.getInstance();
+		to.set(Calendar.DAY_OF_MONTH, to.getActualMaximum(Calendar.DAY_OF_MONTH));
 		
-		calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-		
-		Timestamp to = new Timestamp(calendar.getTimeInMillis());
-		
-		return repository.findAllInRange(from, to);
+		List<Event> all = repository.findAll();
+		return all;
 	} 
 }

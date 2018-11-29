@@ -20,7 +20,7 @@ public class Event {
     @ManyToMany(mappedBy="events")
     private Set<JollyUser> users;
 
-    private String title;
+    public String title;
     private String description;
     
     @Column(name="startDate")

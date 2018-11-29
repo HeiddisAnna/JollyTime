@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
-<%@page import="java.model.Event"%>
+<%@page import="project.model.Event"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="project.Util"%>
 <%
@@ -33,7 +33,7 @@ response.setDateHeader ("Expires", 0);
         
         String selectedMonthName = ((HashMap<Integer, String>) request.getAttribute("monthNames")).get(selectedMonth);
         ArrayList<Util.Day> month = (ArrayList<Util.Day>) request.getAttribute("month");
-        List<Event> eventsInMonth = (List<>) request.getAttribute("eventsInMonth");
+        List<Event> eventsInMonth = (List<Event>) request.getAttribute("eventsInMonth");
     %>
     <head>
     
@@ -48,7 +48,7 @@ response.setDateHeader ("Expires", 0);
     </head>
     <body>
 		<ul id="navbar-Calendar">
-			<li><a class="navbar-text" style="float:left">Jolly Time</a></li>
+			<li><a class="navbar-text" style="float:left" href="/calendar">Jolly Time</a></li>
 			<li><a class="navbar-text" style="float:left" href="/addEvent" method="GET" class="AddEvent_button name="addEvent">Create Event</a></li>
 			<li><a class="navbar-text" style="float:left" href="/bookDate" method="GET" class="BookDate_button name="bookDate">Book a date</a></li>
 			<li><a class="navbar-text" style="float:right" href="/logOut" method="GET" class="logOut_button name="logOut">Log out</a></li>
@@ -83,7 +83,7 @@ response.setDateHeader ("Expires", 0);
 					
 					<div id="EventContainer">
 			     	    <% for(int i = 0; i < eventsInMonth.size(); i++) {
-			      		  		Util.Event event = eventsInMonth.get(i);
+			      		  		Event event = eventsInMonth.get(i);
 			   				%>
 			   				<div class="event">
 			       				<span><%=event.title%></span>
