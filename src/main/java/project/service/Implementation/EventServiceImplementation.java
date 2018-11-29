@@ -10,6 +10,7 @@ import project.persistence.repositories.EventRepository;
 import project.service.EventService;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
@@ -70,6 +71,16 @@ public class EventServiceImplementation implements EventService {
 		to.set(Calendar.DAY_OF_MONTH, to.getActualMaximum(Calendar.DAY_OF_MONTH));
 		
 		List<Event> all = repository.findAll();
-		return all;
+		ArrayList<Event> result = new ArrayList<Event>();
+		
+		for (int i = 0; i < all.size(); i++) {
+			Event event = all.get(i);
+			long fromMillis = from.getTimeInMillis();
+			long toMillis = to.getTimeInMillis();
+			if (event.getStartDate().getTimeInMillis() >= fromMillis && event.getEndDate().getTimeInMillis() <= toMillis ) {
+				result.add(event);
+			}
+		}
+		return result;
 	} 
 }
