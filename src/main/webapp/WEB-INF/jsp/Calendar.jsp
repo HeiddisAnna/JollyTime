@@ -58,7 +58,7 @@ response.setDateHeader ("Expires", 0);
 		<div class="calendar">
 		
 			<div class="w3-sidebar w3-bar-block w3-card sidebar" style="width:230px;">
-				<h1 class="date w3-bar-item"><%=selectedMonthName%> <%=selectedDay%></h1>
+				<h1 class="date w3-bar-item"><%=selectedMonthName%></h1>
 				
 				<div class="friends">
 				<hr>
@@ -80,17 +80,6 @@ response.setDateHeader ("Expires", 0);
 					<div class="addFriend w3-bar-item">
 						<a class="w3-button w3-xlarge w3-circle w3-card-4 sidebar-text addFriend_button" href="/addFriend" method="GET" name="addFriend">+</a>
 					</div>
-					
-					<div id="EventContainer">
-			     	    <% for(int i = 0; i < eventsInMonth.size(); i++) {
-			      		  		Event event = eventsInMonth.get(i);
-			   				%>
-			   				<div class="event">
-			       				<span><%=event.title%></span>
-			   				</div>
-			   			 <% }; %>
-			   		</div>
-					
 				</div>
 			</div>
         
@@ -141,9 +130,14 @@ response.setDateHeader ("Expires", 0);
 						<% } %>
 			     	    <% for(int i = 0; i < month.size(); i++) {
 			      		  		Util.Day day = month.get(i);
+			      		  		String classString = "day";
+			      		  		if (day.isToday) {
+			      		  			classString += " active";
+			      		  		}
 			   				%>
-			   				<div class="day">
-			       				<span><%=day.day%></span>
+			   				<div class="<%=classString%>">
+			       				<span class="day-span"><%=day.day%></span>
+			       				<p><%=day.description%></p>
 			   				</div>
 			   			 <% }; %>
 			   		</div>

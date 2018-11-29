@@ -2,7 +2,8 @@ package project.model;
 
 
 import java.util.Date;
-
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import java.util.Set;
@@ -97,6 +98,34 @@ public class Event {
     
     public void addUser(JollyUser user) {
     	users.add(user);
+    }
+
+    public List<Integer> getDays(int month, int year) {
+    	Calendar calendar = Calendar.getInstance();
+    	calendar.set(Calendar.MONTH, startDate.get(Calendar.MONTH));
+    	calendar.set(Calendar.YEAR, startDate.get(Calendar.YEAR));
+    	calendar.set(Calendar.DAY_OF_MONTH, startDate.get(Calendar.DAY_OF_MONTH));
+    	
+    	int nextMonth = startDate.get(Calendar.MONTH) + 1;
+    	int yearOfNextMonth = startDate.get(Calendar.YEAR);
+    	if (month > 11) {
+    		month = 0;
+    		yearOfNextMonth += 1;
+    	}
+    	
+    	Calendar firstDayOfNextMonth = Calendar.getInstance();
+    	firstDayOfNextMonth.set(Calendar.MONTH, nextMonth);
+    	firstDayOfNextMonth.set(Calendar.YEAR, yearOfNextMonth);
+    	firstDayOfNextMonth.set(Calendar.DAY_OF_MONTH, 1);
+    	
+    	ArrayList<Integer> days = new ArrayList<Integer>();
+    	
+    	while (calendar.getTimeInMillis() < endDate.getTimeInMillis() && calendar.getTimeInMillis() < firstDayOfNextMonth.getTimeInMillis()) {
+    		Integer day = (Integer) calendar.get(Calendar.DAY_OF_MONTH);
+    		days.add(day);
+    		calendar.add(Calendar.DATE, 1);
+    	}
+    	return days;
     }
     
     public Long getLength() {
