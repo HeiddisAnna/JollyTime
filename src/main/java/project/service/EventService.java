@@ -38,7 +38,14 @@ public interface EventService {
      * @return A {@link JollyUser} with {@link Long id}
      */
     Event findOne(Long id);
-
+    
+    /**
+     * Find a {@link List<Event>} based on {@link int year} and {@link int month}
+     * @param year {@link int}
+     * @param month {@link int}
+     * @return A {@link List<Event>} with {@link int month}
+     */
+    List<Event> getAllEventsInMonth(int year, int month);
 
 
 }

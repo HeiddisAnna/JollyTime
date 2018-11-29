@@ -2,11 +2,18 @@ package project.persistence.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.Temporal;
+import org.springframework.data.repository.query.Param;
 
 import project.model.Event;
 import project.model.JollyUser;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+
+import javax.persistence.TemporalType;
 
 /**
  * By extending the {@link JpaRepository} we have access to powerful methods.

@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.springframework.ui.Model;
 
 import project.model.JollyUser;
+import project.service.EventService;
 
 public class Util {
 
@@ -117,7 +118,7 @@ public class Util {
 		return extraDivs;
 	}
 	
-	public static void addNecessaryAttributesForCalendar(Optional<Integer> month, Optional<Integer> year, JollyUser user, Model model) {
+	public static void addNecessaryAttributesForCalendar(Optional<Integer> month, Optional<Integer> year, JollyUser user, Model model, EventService service) {
 		model.addAttribute("name", user.getName());
 		model.addAttribute("friends", user.getFriends());
 		model.addAttribute("email", user.getEmail());
@@ -152,6 +153,7 @@ public class Util {
         	prevMonth = 11;
         }
         
+        model.addAttribute("eventsInMonth", service.getAllEventsInMonth(yearInt, monthInt));
         model.addAttribute("extraDivsWeekdays", getWeekday(yearInt, monthInt));
         model.addAttribute("nextYear", nextYear);
         model.addAttribute("nextMonth", nextMonth);
@@ -160,6 +162,7 @@ public class Util {
         model.addAttribute("selectedDay", dayInt);
         model.addAttribute("selectedMonth", monthInt);
 		model.addAttribute("selectedYear", yearInt);
+		model.addAttribute("days", getMonth(Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.YEAR)));
 		model.addAttribute("month", getMonth(monthInt, yearInt));
 		model.addAttribute("monthNames", getMonthNames());
 		model.addAttribute("email", user.getEmail());

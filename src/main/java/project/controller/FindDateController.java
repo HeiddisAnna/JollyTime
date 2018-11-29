@@ -1,7 +1,6 @@
 package project.controller;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Optional;
@@ -131,18 +130,19 @@ public class FindDateController {
 			return "CreateEvent";
 		}
 
-		
 		//String[] startHours = startTime.split(":");
 		//String[] endHours = endTime.split(":");
-		GregorianCalendar startDate = new GregorianCalendar(Integer.parseInt(startYear), startMonthNumber, Integer.parseInt(startDay), 0, 0);
-		GregorianCalendar endDate = new GregorianCalendar(Integer.parseInt(endYear), endMonthNumber, Integer.parseInt(endDay), 23, 59);
 		
-	
+		Calendar startDate = Calendar.getInstance();
+		startDate.set(Integer.parseInt(startYear), startMonthNumber, Integer.parseInt(startDay), 0, 0);
 		
-		//Event event = new Event(title, description, startDate, endDate, users);
+		Calendar endDate = Calendar.getInstance();
+		endDate.set(Integer.parseInt(endYear), endMonthNumber, Integer.parseInt(endDay), 23, 59);
+
+		// Event event = new Event(title, description, startDate, endDate, users);
 		
 		Set<Event> events = new HashSet<Event>();
-		events.add(event);
+		//events.add(event);
 		
 		Long newDateLength = findDateLength(dateLength);
 		

@@ -20,16 +20,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import project.Util;
 import project.model.JollyUser;
 import project.persistence.repositories.UserRepository;
+import project.service.EventService;
 import project.service.UserService;
 import project.service.Implementation.UserServiceImplementation;
 
 @Controller
 public class CalendarController {
 	UserService userService;
+	EventService eventService;
 	
 	@Autowired
-	public CalendarController(UserService userService) {
+	public CalendarController(UserService userService, EventService eventService) {
 		this.userService = userService;
+		this.eventService = eventService;
 	}
 	
 
@@ -40,7 +43,9 @@ public class CalendarController {
 
 		JollyUser user = (JollyUser) session.getAttribute("user");
 		
-		Util.addNecessaryAttributesForCalendar(month, year, user, model);
+		Util.addNecessaryAttributesForCalendar(month, year, user, model, eventService);
+		
+		
 		
 		return "Calendar";
 	}
@@ -50,7 +55,7 @@ public class CalendarController {
 		
 		JollyUser user = (JollyUser) session.getAttribute("user");
 		
-		Util.addNecessaryAttributesForCalendar(month, year, user, model);
+		Util.addNecessaryAttributesForCalendar(month, year, user, model, eventService);
 		
 		return "Calendar";
 	}
@@ -64,7 +69,7 @@ public class CalendarController {
 	@RequestMapping(value = "/sendSuggestedDates")
 	public String sendSuggestedDates(Model model, HttpSession session) {
 		JollyUser user = (JollyUser) session.getAttribute("user");
-		Util.addNecessaryAttributesForCalendar(Optional.empty(), Optional.empty(), user, model);
+		Util.addNecessaryAttributesForCalendar(Optional.empty(), Optional.empty(), user, model, eventService);
 		
 		return "Calendar";
 	}

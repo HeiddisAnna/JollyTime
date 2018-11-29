@@ -1,23 +1,6 @@
-
-/*html {
-    box-sizing: border-box;
-  
-    font-family: 'Open Sans', helvetica, arial, sans-serif;
-    font-size: 16px;
-  }
-  
-  body {
-    margin: 0 auto;
-    max-width: 1500px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    justify-content: center;
-    height: 100vh;
-    width: 80vw;
-    align-items: center;
-  }*/
+/* ============== */
+/* NAVBAR SECTION */
+/* ============== */
 
 #navbar-Calendar {
     list-style-type: none;
@@ -27,35 +10,87 @@
     background-color: #dd5f0b;
 }
 
-#date {
-	height: 200px;
-}
-
-.hidden {
-	visibility: hidden;
-}
-
-.year {
-	float: right;
-	color: #db732e;
-}
-
 #navbar-Calendar li {
-    float: left;
+	display:inline;
 }
 
 .navbar-text {
+	overflow: hidden;
     display: block;
     color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    display:inline-block;
+    float: left;
+}
+
+.navbar-Calendar a {
+	padding-top: 10px;
+	padding-bottom; 10px;
 }
 
 #navbar-Calendar li a:hover:not(.active) {
     background-color: #db732e;
 }
 
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .calendar {
+  padding-top: 60px;
+}
+
+/* =============== */
+/* SIDEBAR SECTION */
+/* =============== */
+
+.date {
+	height: 40px;
+	padding: 5px;
+}
+
+.sidebar {
+	background-color: white;
+	color: #dd5f0b;
+}
+
+.friends {
+	margin-top: 80px;
+}
+
+.addFriend {
+	padding: 5px;
+	color: white;
+}
+
+.friendsList {
+	padding-top: 0px;
+	padding: 5px;
+}
+
+.friends-title {
+	padding: 5px;
+	padding-bottom: 0px;
+}
+
+
+/* ================ */
+/* CALENDAR SECTION */
+/* ================ */
+
+.hidden {
+	visibility: hidden;
+}
+
+.year {
+	padding : 5px;
+	float: right;
+	color: #db732e;
+}
 
 #monthContainer {
 	display: flex;
@@ -77,7 +112,7 @@
 }
 
 #daysNames {
-	margin-top: 100px;
+	margin-top: 50px;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -96,3 +131,40 @@
     padding: 5px;
     margin: 5px;
 }
+
+/* =============== */
+/* BUTTONS SECTION */
+/* =============== */
+
+#privMonth {
+	float: left;
+}
+
+#nextMonth {
+	float: right;
+}
+
+#prevNextButtons {
+	margin-top: 100px;
+}
+
+#prevButton:link, #prevButton:visited, #nextButton:link, #nextButton:visited {
+    border: 1px solid #dd5f0b;
+    color: #dd5f0b;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+
+#prevButton:hover, #prevButton:active, #nextButton:hover, #nextButton:active {
+    background-color: #db732e;
+    color: white;
+}
+
+.addFriend_button {
+	background-color: #dd5f0b;
+}
+
+
