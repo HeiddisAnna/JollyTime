@@ -27,13 +27,11 @@ public class CreateAccountController {
 		this.userService = userService;
 	}
 	
-	//value er það sem bærtist við urlið þegar þú gerir þetta. 
-	// Þú getur annað hvort verið með post eða get, get er til að sækja upplýsingar, notar get til að fara yfir á næstu síðu
-	// Hann skilar jsp filnum til að fara á þá síðu
+
 	@RequestMapping(value = "/createaccount", method = RequestMethod.GET) 
 	public String createAccount(Model model) {
 		
-		model.addAttribute("user", new JollyUser()); //hann verður að setja inn user til að fara á þessa síðu
+		model.addAttribute("user", new JollyUser()); 
 		
 		return "CreateAccount";
 	}
@@ -44,7 +42,6 @@ public class CreateAccountController {
 		
 		userService.save(user);
 		
-		//model.addAttribute("user", new JollyUser());
 		model.addAttribute("name", user.getName());
 		
 		return "AccountCreated";
