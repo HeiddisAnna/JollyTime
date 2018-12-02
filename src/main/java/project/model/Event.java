@@ -128,12 +128,12 @@ public class Event {
     	return days;
     }
     
-    public Long getLength() {
+    public int getLength() {
     	Date start = startDate.getTime();
     	Date end = endDate.getTime();
     	
     	Long diff = (end.getTime() - start.getTime())/1000;
-    	return diff;
+    	return Math.toIntExact(diff);
     }
     
     /* 

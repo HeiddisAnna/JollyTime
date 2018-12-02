@@ -1,10 +1,12 @@
 package project.controller;
 
 import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
+import java.lang.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,10 +23,7 @@ import project.model.JollyUser;
 import project.service.EventService;
 import project.service.UserService;
 
-/**
- * Small controller just to show that you can have multiple controllers
- * in your project
- */
+
 @Controller
 public class FindDateController {
 
@@ -111,7 +110,7 @@ public class FindDateController {
 		
 		Set<JollyUser> friends = new HashSet<JollyUser>();
 		
-		//Bætum vinum við users
+
 		Iterator<String> friendIterator =  selectedFriends.iterator();
 		while(friendIterator.hasNext()) {
 			JollyUser friendUser = userService.findByEmail(friendIterator.next());
@@ -130,8 +129,6 @@ public class FindDateController {
 			return "CreateEvent";
 		}
 
-		//String[] startHours = startTime.split(":");
-		//String[] endHours = endTime.split(":");
 		
 		Calendar startDate = Calendar.getInstance();
 		startDate.set(Integer.parseInt(startYear), startMonthNumber, Integer.parseInt(startDay), 0, 0);
@@ -139,10 +136,10 @@ public class FindDateController {
 		Calendar endDate = Calendar.getInstance();
 		endDate.set(Integer.parseInt(endYear), endMonthNumber, Integer.parseInt(endDay), 23, 59);
 
-		// Event event = new Event(title, description, startDate, endDate, users);
+		Event event = new Event(title, description, startDate, endDate, users);
 		
 		Set<Event> events = new HashSet<Event>();
-		//events.add(event);
+		events.add(event);
 		
 		Long newDateLength = findDateLength(dateLength);
 		
@@ -155,6 +152,29 @@ public class FindDateController {
 		model.addAttribute("events", finalEvents);
 		
 		return "SuggestedDates";
+	}
+	
+	// Fyrir Andra: Byrjaði en komst eins og þú sérð ekki mjög langt.
+	// Hefðum samt örugglega lent í sömu vandræðum því iteratorinn var ekki að virka hjá okkur
+	public ArrayList<Integer> findDateAlgo2(Set<JollyUser> users, Long dateLength, Event event) {
+		int dl = (int) (24 * Math.ceil(dateLength/60));
+		Boolean[] listOfPossibleDates = new Boolean[dl];
+		Iterator<JollyUser> usersIterator = users.iterator();
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		while (usersIterator.hasNext()) {
+			JollyUser user = usersIterator.next();
+			Iterator<Event> userEventIterator = user.getEvents().iterator();
+			while (userEventIterator.hasNext()) {
+				Event userEvent = userEventIterator.next();
+				// ef userEvent byrjar eftir að event hefst
+				if (event.startsBefore(userEvent)) {
+					// komst ekki lengra :( 
+				}
+	
+			}
+		}
+		return list;
+		
 	}
 	
 	public Set<Event> findDateAlgo(Set<Event> events, Set<JollyUser> users, Long dateLength, Model model){
